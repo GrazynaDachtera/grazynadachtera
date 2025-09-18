@@ -1,26 +1,96 @@
 @import "tailwindcss";
 
+/* ---------- Light is default ---------- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* base */
+  --background: #fafafa;   /* page bg */
+  --foreground: #111827;   /* gray-900 text */
+
+  /* surfaces & UI */
+  --surface: #ffffff;      /* cards */
+  --muted: #4b5563;        /* gray-600 */
+  --subtle: #6b7280;       /* gray-500 */
+  --border: #e5e7eb;       /* gray-200 */
+
+  /* brand */
+  --accent: #4f46e5;       /* indigo-600 */
+  --accent-ink: #1f1b7a;
+
+  /* elevation */
+  --shadow-1: 0 1px 0 rgba(0,0,0,.04), 0 1px 6px rgba(0,0,0,.04);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
+/* ---------- Auto dark mode (soft, readable) ---------- */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0a0f1f;
+    --foreground: #e5e7eb;
+
+    --surface: #0f142a;
+    --muted: #cbd5e1;
+    --subtle: #a5b4fc;
+    --border: #1f2a44;
+
+    --accent: #8b93ff;
+    --accent-ink: #e0e7ff;
+
+    --shadow-1: none;
   }
 }
 
+/* ---------- Tailwind token bridge ---------- */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --shadow-1: var(--shadow-1);
+
+  --font-sans: var(--font-geist-sans);  /* you can swap to Poppins below */
+  --font-mono: var(--font-geist-mono);
+}
+
+/* ---------- Base ---------- */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* Use Next/font’s class for Poppins; this line is just a safe fallback */
+  font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+/* Links & focus */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a:hover, a:focus-visible {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 2px;
+}
+
+/* Card & section helpers (use in SCSS or Tailwind @apply) */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-1);
+  border-radius: 12px;
+}
+
+/* Print: crisp black text, show URL after links */
+@media print {
+  :root {
+    --background: #ffffff;
+    --foreground: #000000;
+    --surface: #ffffff;
+    --muted: #000000;
+    --subtle: #000000;
+    --border: #cfcfcf;
+  }
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-weight: 400; }
+  .no-print { display: none !important; }
 }

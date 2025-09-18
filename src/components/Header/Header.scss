@@ -1,0 +1,135 @@
+/* Design tokens (tweak freely) */
+$resume-maxw: 900px;
+$accent: #4f46e5; // indigo-600
+$text: #111827;  // gray-900
+$muted: #6b7280; // gray-500
+$border: #e5e7eb; // gray-200
+
+.resume-header {
+  display: grid;
+  grid-template-columns: 104px 1fr;
+  gap: 1.25rem;
+  align-items: center;
+  max-width: $resume-maxw;
+  margin: 0 auto;
+  padding: 1.25rem 1rem 0;
+  color: $text;
+
+  @media (min-width: 640px) {
+    gap: 1.5rem;
+    padding: 2rem 1rem 0;
+  }
+
+  &__photo {
+    width: 104px;
+    height: 104px;
+    border-radius: 9999px;
+    overflow: hidden;
+    border: 1px solid $border;
+    box-shadow: 0 1px 0 rgba(0,0,0,.04);
+
+    img { width: 100%; height: 100%; object-fit: cover; }
+  }
+
+  &__content { display: grid; gap: .4rem; }
+
+  &__name {
+    font-size: clamp(1.4rem, 2.8vw, 2rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: 0.2px;
+    text-transform: none; // keep ATS-friendly
+    margin: 0;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: clamp(.95rem, 1.4vw, 1.05rem);
+    color: $muted;
+
+    .sep { opacity: .6; }
+  }
+
+  &__tagline {
+    margin: .25rem 0 0;
+    font-size: .95rem;
+    line-height: 1.4;
+    color: #374151; // gray-700
+  }
+
+  &__contacts {
+    margin: .6rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: .35rem;
+
+    @media (min-width: 640px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: .4rem .75rem;
+    }
+  }
+
+  &__contact {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    min-width: 0;
+
+    svg {
+      width: 18px;
+      height: 18px;
+      flex: 0 0 18px;
+      fill: currentColor;
+      color: $accent;
+      opacity: .95;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      padding-bottom: 1px;
+      overflow-wrap: anywhere;
+
+      &:hover,
+      &:focus-visible {
+        border-bottom-color: $accent;
+        outline: none;
+      }
+    }
+  }
+}
+
+/* Accessibility helpers */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+/* Dark mode (optional but nice) */
+@media (prefers-color-scheme: dark) {
+  .resume-header {
+    color: #e5e7eb; // gray-200
+    .resume-header__title { color: #9ca3af; }
+    .resume-header__tagline { color: #d1d5db; }
+    .resume-header__photo { border-color: #374151; }
+  }
+}
+
+/* Print: black text, show link URLs for recruiters */
+@media print {
+  .resume-header {
+    padding: 0 0 .5rem;
+    .resume-header__contact a[href^="http"]::after {
+      content: " (" attr(href) ")";
+      font-weight: 400;
+    }
+    .resume-header__contact a[href^="mailto"],
+    .resume-header__contact a[href^="tel"] {
+      text-decoration: none;
+    }
+  }
+}
