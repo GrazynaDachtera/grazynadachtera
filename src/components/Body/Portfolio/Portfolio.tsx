@@ -6,24 +6,24 @@ import "./Portfolio.scss";
 /* ---------- Types ---------- */
 export type Project = {
   title: string;
-  siteUrl: string; // live URL (required)
-  summary: string; // 1–2 lines
-  role: string; // e.g., "Web Developer"
-  period: string; // e.g., "2024" or "2023–2024"
-  tags: readonly string[]; // tech stack
-  highlights: readonly string[]; // outcomes / impact
-  featured: boolean; // keep if you use it elsewhere
-  repoUrl?: string; // optional link to code
+  siteUrl: string;
+  summary: string;
+  role: string;
+  period: string; // e.g. "2024–2025"
+  tags: readonly string[];
+  highlights: readonly string[];
+  featured: boolean;
+  repoUrl?: string;
 
   // layout control
-  order: number; // controls position (1,2,3…)
-  wide?: boolean; // if true, spans 2 columns on desktop
+  order: number;
+  wide?: boolean;
 };
 
 /* Helper to ensure each object conforms to Project at compile time */
 const p = (x: Project) => x;
 
-/* ---------- Data (update links/text as needed) ---------- */
+/* ---------- Data ---------- */
 const PROJECTS = [
   p({
     title: "Sąsiedzki Łazarz",
@@ -61,33 +61,32 @@ const PROJECTS = [
     wide: true,
   }),
   p({
-    title: "Global Property",
-    siteUrl: "https://globalproperty-group.com/",
-    summary:
-      "Boutique real-estate development & advisory studio; consultation funnel and team capabilities from concept to execution.",
-    role: "Web Development Intern",
-    period: "2024 – 2025",
-    tags: ["Next.js", "React", "TypeScript", "SCSS", "Node.js"],
-    highlights: ["Performance & a11y improvements", "SEO-ready metadata"],
-    featured: true,
-    repoUrl: "https://github.com/ProAdvisorGroup",
-    order: 3,
-    wide: true,
-  }),
-  // FULL-WIDTH like Global Property:
-  p({
     title: "Kongwell",
     siteUrl: "https://example.com/kongwell",
     summary:
       "Landing page with clear information hierarchy and mobile-first layout.",
     role: "Web Developer",
-    period: "2023",
+    period: "2025", // align with your actual date; use an en dash for ranges, e.g. "2023–2025"
     tags: ["React", "SCSS"],
     highlights: ["Clean layout; fast TTI"],
     featured: false,
     repoUrl: "",
+    order: 3,
+    wide: true,
+  }),
+  p({
+    title: "Global Property",
+    siteUrl: "https://globalproperty-group.com/",
+    summary:
+      "Boutique real-estate development & advisory studio; consultation funnel and team capabilities from concept to execution.",
+    role: "Web Development Intern",
+    period: "2024–2025",
+    tags: ["Next.js", "React", "TypeScript", "SCSS", "Node.js"],
+    highlights: ["Performance & a11y improvements", "SEO-ready metadata"],
+    featured: true,
+    repoUrl: "https://github.com/ProAdvisorGroup",
     order: 4,
-    wide: true, // ← now spans both columns
+    wide: true,
   }),
   p({
     title: "summ-it.pl Audit & UX",
@@ -95,7 +94,7 @@ const PROJECTS = [
     summary:
       "Audit + implementation that boosted performance and UX for a managed services company.",
     role: "Associate IT Specialist",
-    period: "2024",
+    period: "2023–2024",
     tags: ["Audit", "Performance", "A11y", "SEO"],
     highlights: [
       "Scores raised to 99%",
@@ -104,7 +103,7 @@ const PROJECTS = [
     featured: true,
     repoUrl: "",
     order: 5,
-    wide: true, // ← now spans both columns
+    wide: true,
   }),
 ] as const satisfies readonly Project[];
 
@@ -114,7 +113,6 @@ function Tag({ children }: { children: React.ReactNode }) {
 }
 
 export default function Portfolio() {
-  // Sort strictly by explicit order
   const items = [...PROJECTS].sort((a, b) => a.order - b.order);
 
   return (
@@ -132,80 +130,91 @@ export default function Portfolio() {
       </header>
 
       <ul className="portfolio__grid" role="list">
-        {items.map((p) => (
-          <li
-            key={p.title}
-            className={`portfolio__item${p.wide ? " is-wide" : ""}`}
-          >
-            <article
-              className="project-card"
-              aria-labelledby={`${slugify(p.title)}-title`}
+        {items.map((p, i) => {
+          const headingId = `${slugify(p.title)}-${i}`; // unique + diacritic-safe
+          return (
+            <li
+              key={p.title}
+              className={`portfolio__item${p.wide ? " is-wide" : ""}`}
             >
-              <div className="project-card__head">
-                <h3
-                  id={`${slugify(p.title)}-title`}
-                  className="project-card__title"
-                >
+              <article
+                className="project-card"
+                aria-labelledby={headingId}
+                itemScope
+                itemType="https://schema.org/CreativeWork"
+              >
+                <div className="project-card__head">
+                  <h3
+                    id={headingId}
+                    className="project-card__title"
+                    itemProp="name"
+                  >
+                    <a
+                      href={p.siteUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Open live site: ${p.title}`}
+                      itemProp="url"
+                    >
+                      {p.title}
+                    </a>
+                  </h3>
+                  <p className="project-card__meta">
+                    <span>{p.role}</span>
+                    <span aria-hidden="true"> · </span>
+                    <time>{p.period}</time>
+                  </p>
+                </div>
+
+                <p className="project-card__summary" itemProp="description">
+                  {p.summary}
+                </p>
+
+                {p.highlights.length > 0 && (
+                  <ul className="project-card__highlights">
+                    {p.highlights.map((h) => (
+                      <li key={h}>{h}</li>
+                    ))}
+                  </ul>
+                )}
+
+                <div className="project-card__tags">
+                  {p.tags.map((t) => (
+                    <Tag key={t}>{t}</Tag>
+                  ))}
+                </div>
+
+                <p className="project-card__links">
                   <a
                     href={p.siteUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label={`${p.title} — live site`}
+                    className="project-link"
+                    aria-label={`Open live site: ${p.title}`}
                   >
-                    {p.title}
+                    Live
                   </a>
-                </h3>
-                <p className="project-card__meta">
-                  <span>{p.role}</span>
-                  <span aria-hidden="true"> · </span>
-                  <time>{p.period}</time>
+                  {p.repoUrl && (
+                    <>
+                      <span aria-hidden="true" className="dot">
+                        •
+                      </span>
+                      <a
+                        href={p.repoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="project-link"
+                        aria-label={`View code on GitHub: ${p.title}`}
+                      >
+                        Code
+                      </a>
+                    </>
+                  )}
                 </p>
-              </div>
-
-              <p className="project-card__summary">{p.summary}</p>
-
-              {p.highlights.length > 0 && (
-                <ul className="project-card__highlights">
-                  {p.highlights.map((h) => (
-                    <li key={h}>{h}</li>
-                  ))}
-                </ul>
-              )}
-
-              <div className="project-card__tags">
-                {p.tags.map((t) => (
-                  <Tag key={t}>{t}</Tag>
-                ))}
-              </div>
-
-              <p className="project-card__links">
-                <a
-                  href={p.siteUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="project-link"
-                >
-                  Live
-                </a>
-                {p.repoUrl && (
-                  <>
-                    <span aria-hidden="true" className="dot">
-                      •
-                    </span>
-                    <a
-                      href={p.repoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="project-link"
-                    >
-                      Code
-                    </a>
-                  </>
-                )}
-              </p>
-            </article>
-          </li>
-        ))}
+              </article>
+            </li>
+          );
+        })}
       </ul>
     </section>
   );
@@ -213,7 +222,10 @@ export default function Portfolio() {
 
 /* ---------- Helpers ---------- */
 function slugify(s: string) {
+  // remove diacritics, then slug
   return s
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)+/g, "");

@@ -94,3 +94,19 @@ a:hover, a:focus-visible {
   a[href^="http"]::after { content: " (" attr(href) ")"; font-weight: 400; }
   .no-print { display: none !important; }
 }
+
+.skillsGrid {
+  max-width: 900px;
+  margin: 1.5rem auto 0;
+  padding: 0 1rem;
+  display: grid;
+  gap: .9rem;
+}
+@media (min-width: 720px) {
+  .skillsGrid {
+    grid-template-columns: 1fr 1fr; /* 50/50 */
+  }
+}
+@media print {
+  .skillsGrid > * { break-inside: avoid; page-break-inside: avoid; }
+}
