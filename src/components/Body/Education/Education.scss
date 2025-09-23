@@ -1,0 +1,106 @@
+/* tokens from globals.css */
+$txt: var(--foreground);
+$muted: var(--muted);
+$surface: var(--surface);
+$border: var(--border);
+$shadow: var(--shadow-1);
+$accent: var(--accent);
+
+.education-card {
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: 12px;
+  box-shadow: $shadow;
+  padding: .9rem 1rem;
+  color: $txt;
+
+    margin-bottom: 1.25rem;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin-bottom: .5rem;
+  }
+
+  &__icon {
+    width: 26px; height: 26px;
+    display: grid; place-items: center;
+    border-radius: 999px;
+    background: color-mix(in oklab, $accent 12%, $surface);
+    border: 1px solid $border;
+    font-size: 14px;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: .2px;
+  }
+
+  &__timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: .6rem;
+  }
+
+  &__item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    column-gap: 1rem;
+    padding-left: 1.2rem;
+    position: relative;
+
+    /* same visual check marker for consistency */
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0; top: .55rem;
+      width: .6rem; height: .6rem;
+      border-radius: 3px;
+      border: 2px solid $accent;
+      transform: rotate(45deg);
+      box-shadow: inset .15rem -.15rem 0 0 $accent;
+    }
+  }
+
+  &__degree {
+    font-weight: 700;
+    font-size: .95rem;
+    line-height: 1.35;
+  }
+
+  &__school {
+    display: block;
+    color: $muted;
+    margin-top: .1rem;
+  }
+
+  &__dates {
+    color: $muted;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    padding: .1rem .4rem;
+    border: 1px solid $border;
+    border-radius: 8px;
+    background: color-mix(in oklab, $accent 7%, $surface);
+  }
+}
+
+@media (max-width: 520px) {
+  .education-card__item {
+    grid-template-columns: 1fr;
+    row-gap: .25rem;
+  }
+  .education-card__dates {
+    width: fit-content;
+  }
+}
+
+@media print {
+  .education-card { break-inside: avoid; page-break-inside: avoid; }
+}

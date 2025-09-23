@@ -95,6 +95,33 @@ a:hover, a:focus-visible {
   .no-print { display: none !important; }
 }
 
+/* =========================================================
+   Skills section — matches WorkExperience section layout
+   ========================================================= */
+.Skills {
+  max-width: 900px;
+  margin: 2rem auto 0;
+  padding: 0 1rem;
+  color: var(--foreground);
+}
+
+.Skills__header { margin-bottom: 0.75rem; }
+
+.Skills__title {
+  font-size: clamp(1.1rem, 2vw, 1.25rem);
+  font-weight: 700;
+  margin: 0 0 0.25rem;
+  letter-spacing: .2px;
+  color: var(--foreground);
+}
+
+.Skills__subtitle {
+  margin: 0 0 .75rem;
+  color: var(--muted);
+  font-size: .95rem;
+}
+
+/* Existing skills grid layout (global) */
 .skillsGrid {
   max-width: 900px;
   margin: 1.5rem auto 0;
@@ -107,6 +134,17 @@ a:hover, a:focus-visible {
     grid-template-columns: 1fr 1fr; /* 50/50 */
   }
 }
+
+/* IMPORTANT: When skillsGrid is used inside the Skills section,
+   let the section container control width & margins so it perfectly
+   matches the WorkExperience layout. */
+.Skills__grid.skillsGrid {
+  max-width: none;
+  margin: 0;        /* remove extra top/auto margins */
+  padding: 0;       /* inherit section padding */
+}
+
 @media print {
   .skillsGrid > * { break-inside: avoid; page-break-inside: avoid; }
+  .Skills { margin-top: .5rem; }
 }

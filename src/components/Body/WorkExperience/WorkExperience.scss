@@ -1,0 +1,155 @@
+/* use your global CSS variables so light/dark just work */
+$accent: var(--accent);
+$text: var(--foreground);
+$muted: var(--muted);
+$subtle: var(--subtle);
+$border: var(--border);
+$surface: var(--surface);
+$shadow1: var(--shadow-1);
+
+.WorkExperience {
+  max-width: 900px;
+  margin: 2rem auto 0;
+  padding: 0 1rem;
+  color: $text;
+
+  &__header { margin-bottom: 0.75rem; }
+
+  &__title {
+    font-size: clamp(1.1rem, 2vw, 1.25rem);
+    font-weight: 700;
+    margin: 0 0 0.25rem;
+    letter-spacing: .2px;
+    color: $text;
+  }
+
+  &__subtitle {
+    margin: 0 0 .75rem;
+    color: $muted;
+    font-size: .95rem;
+  }
+
+  &__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: .9rem;
+
+    @media (min-width: 720px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  /* wide items span two columns on desktop */
+  &__item.is-wide {
+    @media (min-width: 720px) { grid-column: span 2; }
+  }
+}
+
+.project-card {
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: 12px;
+  padding: 1rem;
+  display: grid;
+  gap: .6rem;
+  box-shadow: $shadow1;
+
+  &:focus-within {
+    outline: 2px solid $accent;
+    outline-offset: 2px;
+  }
+
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: .75rem;
+  }
+
+  &__title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 0;
+    color: $text;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+
+      &:hover,
+      &:focus-visible {
+        border-bottom-color: $accent;
+        outline: none;
+      }
+    }
+  }
+
+  &__meta {
+    margin: 0;
+    color: $muted;
+    font-size: .9rem;
+    white-space: nowrap;
+  }
+
+  &__summary {
+    margin: 0;
+    font-size: .95rem;
+    line-height: 1.5;
+    color: $subtle;
+  }
+
+  &__highlights {
+    list-style: disc;
+    padding-left: 1.1rem;
+    margin: 0;
+    color: $subtle;
+
+    li { margin: .15rem 0; }
+  }
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem;
+  }
+
+  &__links {
+    margin: 0;
+    font-size: .92rem;
+
+    .dot { margin: 0 .4rem; color: $muted; }
+  }
+}
+
+.tag {
+  display: inline-block;
+  border: 1px solid $border;
+  border-radius: 999px;
+  padding: .18rem .5rem;
+  font-size: .8rem;
+  line-height: 1;
+  background: color-mix(in oklab, $surface 85%, $border);
+  color: $text;
+}
+
+.project-link {
+  color: $accent;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+
+  &:hover,
+  &:focus-visible {
+    border-bottom-color: $accent;
+    outline: none;
+  }
+}
+
+/* Print */
+@media print {
+  .WorkExperience { margin-top: .5rem; }
+  .project-card { break-inside: avoid; page-break-inside: avoid; }
+  .project-link[href^="http"]::after { content: " (" attr(href) ")"; }
+}

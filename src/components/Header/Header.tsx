@@ -19,14 +19,14 @@ type Contact = { type: ContactType; label: string; href: string };
 const CONTACTS: Contact[] = [
   { type: "phone", label: "+48 733 828 924", href: "tel:+48733828924" },
   {
-    type: "email",
-    label: "grazynadachtera@gmail.com",
-    href: "mailto:grazynadachtera@gmail.com",
-  },
-  {
     type: "github",
     label: "github.com/grazynadachtera",
     href: "https://github.com/grazynadachtera",
+  },
+  {
+    type: "email",
+    label: "grazynadachtera@gmail.com",
+    href: "mailto:grazynadachtera@gmail.com",
   },
   {
     type: "linkedin",
@@ -36,8 +36,11 @@ const CONTACTS: Contact[] = [
 ];
 
 // light, ATS-friendly one-liner. keep it to ~140 chars.
-const TAGLINE =
-  "Frontend Developer (React/TypeScript) with a UX focus; turns Figma into accessible, fast UIs and ships clean, readable code.";
+const TAGLINE = [
+  "I am a Frontend Developer (JavaScript • Next.js • TypeScript) with strong aesthetic judgment.",
+  "I translate Figma designs into minimalist, clarity-first, standards-compliant interfaces and deliver clean, maintainable code.",
+  "Clients value my speed and the intuitive feel of my sites.",
+].join("\n");
 
 function Icon({ type }: { type: ContactType }) {
   // simple inline SVGs (no extra libs); sized via CSS
@@ -75,7 +78,6 @@ export default function Header() {
       itemType="https://schema.org/Person"
     >
       <div className="resume-header__photo">
-        {/* Put your file at public/images/profile.jpg */}
         <Image
           src="/profileImage.jpg"
           alt="Grażyna Dachtera headshot"
@@ -91,9 +93,7 @@ export default function Header() {
         </h1>
 
         <p className="resume-header__title">
-          <span itemProp="jobTitle">
-            Frontend Developer — React / TypeScript
-          </span>
+          <span itemProp="jobTitle">JavaScript Developer</span>
           <span className="sep"> · </span>
           <span>Associate IT Specialist</span>
         </p>

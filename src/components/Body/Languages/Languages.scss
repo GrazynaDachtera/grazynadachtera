@@ -1,0 +1,88 @@
+/* tokens from globals.css */
+$txt: var(--foreground);
+$muted: var(--muted);
+$surface: var(--surface);
+$border: var(--border);
+$shadow: var(--shadow-1);
+$accent: var(--accent);
+
+.languages-card {
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: 12px;
+  box-shadow: $shadow;
+  padding: .9rem 1rem;
+  color: $txt;
+
+    margin-bottom: 1.25rem;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin-bottom: .5rem;
+  }
+
+  &__icon {
+    width: 26px; height: 26px;
+    display: grid; place-items: center;
+    border-radius: 999px;
+    background: color-mix(in oklab, $accent 12%, $surface);
+    border: 1px solid $border;
+    font-size: 14px;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: .2px;
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: .35rem;
+
+    li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .75rem;
+      line-height: 1.5;
+      padding-left: 1.2rem;
+      position: relative;
+      color: $muted;
+
+      /* subtle square check like Areas */
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0; top: .45rem;
+        width: .6rem; height: .6rem;
+        border-radius: 3px;
+        border: 2px solid $accent;
+        transform: rotate(45deg);
+        box-shadow: inset .15rem -.15rem 0 0 $accent;
+      }
+    }
+  }
+
+  &__name { color: $txt; }
+
+  &__level {
+    border: 1px solid $border;
+    background: color-mix(in oklab, $accent 10%, $surface);
+    padding: .05rem .5rem;
+    border-radius: 999px;
+    font-size: .85rem;
+    color: $txt;
+    white-space: nowrap;
+  }
+}
+
+@media print {
+  .languages-card { break-inside: avoid; page-break-inside: avoid; }
+}
