@@ -11,11 +11,9 @@ const poppins = Poppins({
   display: "swap",
 });
 
-// ---- types ----
 type ContactType = "phone" | "email" | "github" | "linkedin";
 type Contact = { type: ContactType; label: string; href: string };
 
-// ---- data (edit as needed) ----
 const CONTACTS: Contact[] = [
   { type: "phone", label: "+48 733 828 924", href: "tel:+48733828924" },
   {
@@ -35,7 +33,6 @@ const CONTACTS: Contact[] = [
   },
 ];
 
-// light, ATS-friendly one-liner. keep it to ~140 chars.
 const TAGLINE = [
   "I am a Frontend Developer (JavaScript • Next.js • TypeScript) with strong aesthetic judgment.",
   "I translate Figma designs into minimalist, clarity-first, standards-compliant interfaces and deliver clean, maintainable code.",
@@ -43,7 +40,6 @@ const TAGLINE = [
 ].join("\n");
 
 function Icon({ type }: { type: ContactType }) {
-  // simple inline SVGs (no extra libs); sized via CSS
   if (type === "phone")
     return (
       <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -81,8 +77,8 @@ export default function Header() {
         <Image
           src="/profileImage.jpg"
           alt="Grażyna Dachtera headshot"
-          width={128}
-          height={128}
+          width={144}
+          height={144}
           priority
         />
       </div>
@@ -92,9 +88,9 @@ export default function Header() {
           Grażyna Dachtera
         </h1>
 
-        <p className="resume-header__title">
+        <p className="resume-header__role">
           <span itemProp="jobTitle">JavaScript Developer</span>
-          <span className="sep"> · </span>
+          <span className="sep">·</span>
           <span>Associate IT Specialist</span>
         </p>
 

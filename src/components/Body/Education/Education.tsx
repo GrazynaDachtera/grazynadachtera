@@ -19,10 +19,14 @@ export default function Education() {
         <li className="education-card__item">
           <div className="education-card__content">
             <strong className="education-card__degree">
-              Postgraduate studies — Frontend Development
+              Postgraduate studies - Frontend Development
             </strong>
             <span className="education-card__school">
-              Poznan University of Technology
+              <span className="education-card__institution">
+                Poznan University of Technology
+              </span>
+              , <span className="education-card__city">Poznan</span>,{" "}
+              <span className="education-card__country">Poland</span>
             </span>
           </div>
           <time className="education-card__dates" aria-label="2023 to 2024">
@@ -33,10 +37,14 @@ export default function Education() {
         <li className="education-card__item">
           <div className="education-card__content">
             <strong className="education-card__degree">
-              Master’s degree — Business Management
+              Master’s degree - Business Management
             </strong>
             <span className="education-card__school">
-              WSB Merito University Poznan
+              <span className="education-card__institution">
+                WSB Merito University
+              </span>
+              , <span className="education-card__city">Poznan</span>,{" "}
+              <span className="education-card__country">Poland</span>
             </span>
           </div>
           <time className="education-card__dates" aria-label="2020 to 2022">

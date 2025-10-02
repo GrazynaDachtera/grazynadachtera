@@ -17,19 +17,20 @@ export default function CoreCompetencies() {
 
       <ul className="competencies-card__list" role="list">
         <li>
-          <strong>Understand users:</strong> translate goals into clear UI flows
+          <strong>React & TypeScript Development:</strong> building responsive,
+          accessible, and scalable web applications
         </li>
         <li>
-          <strong>Communicate clearly:</strong> concise tickets, readable PRs
+          <strong>Performance & Accessibility:</strong> optimizing user
+          experience with fast, inclusive, and SEO-friendly solutions
         </li>
         <li>
-          <strong>Team player:</strong> constructive code reviews & pairing
+          <strong>Collaboration & Communication:</strong> clear PRs,
+          constructive feedback, and effective teamwork across disciplines
         </li>
         <li>
-          <strong>Problem-solver:</strong> unblock with research & small spikes
-        </li>
-        <li>
-          <strong>Growth mindset:</strong> continuous learning & feedback
+          <strong>Adaptability & Growth Mindset:</strong> eager learner, open to
+          feedback, and quick to master new tools
         </li>
       </ul>
     </section>

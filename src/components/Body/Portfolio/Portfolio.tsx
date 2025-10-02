@@ -3,27 +3,22 @@
 import React from "react";
 import "./Portfolio.scss";
 
-/* ---------- Types ---------- */
 export type Project = {
   title: string;
   siteUrl: string;
   summary: string;
   role: string;
-  period: string; // e.g. "2024–2025"
+  period: string;
   tags: readonly string[];
   highlights: readonly string[];
   featured: boolean;
   repoUrl?: string;
-
-  // layout control
   order: number;
   wide?: boolean;
 };
 
-/* Helper to ensure each object conforms to Project at compile time */
 const p = (x: Project) => x;
 
-/* ---------- Data ---------- */
 const PROJECTS = [
   p({
     title: "Sąsiedzki Łazarz",
@@ -43,9 +38,9 @@ const PROJECTS = [
     ],
     highlights: [
       "Delivered MVP to production in 3 weeks",
-      "Built with Next.js App Router (TypeScript): file-based routing + shared layouts",
+      "Built with Next.js App Router (TypeScript): file-based routing and shared layouts",
       "Contact form with explicit RODO/GDPR consent (EmailJS, serverless)",
-      "Legal & accessibility pages: RODO, Privacy Policy, Accessibility, Terms",
+      "Legal and accessibility pages: RODO, Privacy Policy, Accessibility, Terms",
       "Responsive SCSS and mobile-first performance optimizations",
     ],
     featured: true,
@@ -71,7 +66,7 @@ const PROJECTS = [
     ],
     highlights: [
       "End-to-end ownership: designed, built, and deployed on Vercel with preview deployments and env-scoped secrets",
-      "Production-ready forms: Trial Sign-Up & Contact with client-side validation, loading/disabled states, and RODO/GDPR consent (Contact via EmailJS)",
+      "Production-ready forms: Trial Sign-Up and Contact with client-side validation, loading/disabled states, and RODO/GDPR consent (Contact via EmailJS)",
       "Mobile-first performance: responsive SCSS, next/image optimizations, and lazy loading for a fast first paint",
       "Dynamic schedule (2025/2026) with search and filters by location and discipline",
       "Clear pricing and news/updates with social integrations and prominent CTAs",
@@ -106,7 +101,7 @@ const PROJECTS = [
     summary:
       "Built a Next.js/React site for a luxury real-estate company. Translated Figma designs into reusable components, integrated Node.js APIs, and ensured cross-browser compatibility.",
     role: "Web Development Intern",
-    period: "2024–2025",
+    period: "2024-2025",
     tags: ["Next.js", "React", "TypeScript", "SCSS", "Node.js"],
     highlights: [
       "Converted Figma designs into reusable React/TypeScript components with SCSS modules",
@@ -121,9 +116,9 @@ const PROJECTS = [
     title: "summ-it",
     siteUrl: "https://summ-it.pl",
     summary:
-      "Full-site Lighthouse audit of summ-it.pl (desktop & mobile) across Performance, Accessibility, Best Practices, and SEO—delivering a prioritized fix plan to reduce Speed Index/Total Blocking Time, stabilize layout, and close key a11y/SEO gaps.",
+      "Full-site Lighthouse audit of summ-it.pl (desktop and mobile) across Performance, Accessibility, Best Practices, and SEO-delivering a prioritized fix plan to reduce Speed Index/Total Blocking Time, stabilize layout, and close key a11y/SEO gaps.",
     role: "Associate IT Specialist",
-    period: "2023–2024",
+    period: "2023-2024",
     tags: [
       "Website Audit",
       "Performance",
@@ -134,7 +129,7 @@ const PROJECTS = [
       "Lazy Loading",
     ],
     highlights: [
-      "Lighthouse-driven review covering Performance, Accessibility, Best Practices, and SEO (desktop & mobile)",
+      "Lighthouse-driven review covering Performance, Accessibility, Best Practices, and SEO (desktop and mobile)",
       "Performance: defined img width/height, cut network payloads, modernized/compressed images, lazy-loaded assets, and reduced unused JS to improve SI/TBT",
       "Accessibility: added accessible names for buttons/links and fixed heading hierarchy for screen readers",
       "SEO: added meta descriptions and descriptive alt text for images; improved crawl snippets and image indexing",
@@ -149,7 +144,6 @@ const PROJECTS = [
   }),
 ] as const satisfies readonly Project[];
 
-/* ---------- Component ---------- */
 function Tag({ children }: { children: React.ReactNode }) {
   return <span className="tag">{children}</span>;
 }
@@ -173,7 +167,7 @@ export default function Portfolio() {
 
       <ul className="portfolio__grid" role="list">
         {items.map((p, i) => {
-          const headingId = `${slugify(p.title)}-${i}`; // unique + diacritic-safe
+          const headingId = `${slugify(p.title)}-${i}`;
           return (
             <li
               key={p.title}
@@ -262,9 +256,7 @@ export default function Portfolio() {
   );
 }
 
-/* ---------- Helpers ---------- */
 function slugify(s: string) {
-  // remove diacritics, then slug
   return s
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")

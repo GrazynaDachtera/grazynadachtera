@@ -1,4 +1,3 @@
-/* tokens from globals.css */
 $txt: var(--foreground);
 $muted: var(--muted);
 $surface: var(--surface);
@@ -13,8 +12,7 @@ $accent: var(--accent);
   box-shadow: $shadow;
   padding: .9rem 1rem;
   color: $txt;
-
-    margin-bottom: 1.25rem;
+  margin-bottom: 1.25rem;
 
   &__header {
     display: flex;
@@ -24,8 +22,10 @@ $accent: var(--accent);
   }
 
   &__icon {
-    width: 26px; height: 26px;
-    display: grid; place-items: center;
+    width: 26px;
+    height: 26px;
+    display: grid;
+    place-items: center;
     border-radius: 999px;
     background: color-mix(in oklab, $accent 12%, $surface);
     border: 1px solid $border;
@@ -55,12 +55,13 @@ $accent: var(--accent);
     padding-left: 1.2rem;
     position: relative;
 
-    /* same visual check marker for consistency */
     &::before {
       content: "";
       position: absolute;
-      left: 0; top: .55rem;
-      width: .6rem; height: .6rem;
+      left: 0;
+      top: .55rem;
+      width: .6rem;
+      height: .6rem;
       border-radius: 3px;
       border: 2px solid $accent;
       transform: rotate(45deg);
@@ -78,6 +79,12 @@ $accent: var(--accent);
     display: block;
     color: $muted;
     margin-top: .1rem;
+  }
+
+  &__institution,
+  &__city,
+  &__country {
+    font-style: normal;
   }
 
   &__dates {
@@ -102,5 +109,8 @@ $accent: var(--accent);
 }
 
 @media print {
-  .education-card { break-inside: avoid; page-break-inside: avoid; }
+  .education-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
 }

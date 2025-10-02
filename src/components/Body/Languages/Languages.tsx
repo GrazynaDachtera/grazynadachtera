@@ -31,12 +31,6 @@ export default function Languages() {
             native
           </span>
         </li>
-        <li>
-          <span className="languages-card__name">German</span>
-          <span className="languages-card__level" aria-label="A1 proficiency">
-            A1
-          </span>
-        </li>
       </ul>
     </section>
   );
