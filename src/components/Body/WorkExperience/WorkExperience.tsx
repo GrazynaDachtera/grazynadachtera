@@ -51,6 +51,7 @@ const EXPERIENCES = [
       "SEO",
       "Accessibility",
       "SQL Server",
+      "M365",
       "Windows Server",
       "Active Directory",
     ],
