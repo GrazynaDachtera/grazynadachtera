@@ -1,4 +1,5 @@
 "use client";
+
 import Image from "next/image";
 import React, { useState } from "react";
 import "./Header.scss";
@@ -151,7 +152,6 @@ export default function Header() {
           >
             Download CV
           </a>
-
           <a
             className="btn btn--ghost"
             href={gmailComposeUrl}
@@ -161,7 +161,6 @@ export default function Header() {
           >
             Write an email
           </a>
-
           <a
             className="btn btn--ghost"
             href="#portfolio"

@@ -1,31 +1,35 @@
+@use "@/styles/ui";
+
 $accent: var(--accent);
-$text: var(--foreground);
-$muted: var(--muted);
-$subtle: var(--subtle);
+$text: var(--text);
 $border: var(--border);
 $surface: var(--surface);
 $shadow1: var(--shadow-1);
 
-.portfolio {
-  max-width: 900px;
-  margin: 2rem auto 0;
-  padding: 0 1rem;
-  color: $text;
+/* one source of truth for title & meta size */
+$heading-size: clamp(1.05rem, 1.6vw, 1.25rem);
 
-  &__header { margin-bottom: 0.75rem; }
+.portfolio {
+  @include ui.card(20px, 1.5rem);
+  max-width: 900px;
+  margin: 1.25rem auto 0;
+
+  @media (min-width: 640px) { padding: 1.75rem 2rem; }
+
+  &__header { margin-bottom: .75rem; }
 
   &__title {
-    font-size: clamp(1.1rem, 2vw, 1.25rem);
-    font-weight: 700;
-    margin: 0 0 0.25rem;
+    font-size: clamp(1.4rem, 3.2vw, 2rem);
+    font-weight: 800;
+    margin: 0 0 .25rem;
     letter-spacing: .2px;
-    color: $text;
+    line-height: 1.05;
   }
 
   &__subtitle {
-    margin: 0 0 .75rem;
-    color: $muted;
-    font-size: .95rem;
+    margin: 0 0 .9rem;
+    color: $text;
+    font-size: 1rem;
   }
 
   &__grid {
@@ -33,7 +37,7 @@ $shadow1: var(--shadow-1);
     margin: 0;
     padding: 0;
     display: grid;
-    gap: .9rem;
+    gap: 1rem;
 
     @media (min-width: 720px) {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -47,12 +51,13 @@ $shadow1: var(--shadow-1);
 
 .project-card {
   background: $surface;
-  border: 1px solid $border;
-  border-radius: 12px;
+  border: 0;
+  border-radius: 16px;
   padding: 1rem;
   display: grid;
-  gap: .6rem;
+  gap: .7rem;
   box-shadow: $shadow1;
+  color: $text;
 
   &:focus-within {
     outline: 2px solid $accent;
@@ -67,10 +72,11 @@ $shadow1: var(--shadow-1);
   }
 
   &__title {
-    font-size: 1.05rem;
-    font-weight: 600;
     margin: 0;
-    color: $text;
+    font-size: $heading-size;
+    font-weight: 700;
+    letter-spacing: .2px;
+    color: $accent;
 
     a {
       color: inherit;
@@ -87,25 +93,27 @@ $shadow1: var(--shadow-1);
 
   &__meta {
     margin: 0;
-    color: $muted;
-    font-size: .9rem;
     white-space: nowrap;
+    font-size: $heading-size;
+    font-weight: 700;
+    letter-spacing: .2px;
+    color: $accent;
   }
 
   &__summary {
     margin: 0;
-    font-size: .95rem;
-    line-height: 1.5;
-    color: $subtle;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: $text;
   }
 
   &__highlights {
     list-style: disc;
     padding-left: 1.1rem;
     margin: 0;
-    color: $subtle;
+    color: $text;
 
-    li { margin: .15rem 0; }
+    li { margin: .2rem 0; }
   }
 
   &__tags {
@@ -115,38 +123,40 @@ $shadow1: var(--shadow-1);
   }
 
   &__links {
-    margin: 0;
-    font-size: .92rem;
-
-    .dot { margin: 0 .4rem; color: $muted; }
+    margin: .2rem 0 0;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
   }
 }
 
-.tag {
-  display: inline-block;
-  border: 1px solid $border;
-  border-radius: 999px;
-  padding: .18rem .5rem;
-  font-size: .8rem;
-  line-height: 1;
-  background: color-mix(in oklab, $surface 85%, $border);
-  color: $text;
+.project-card__links .btn.btn--ghost,
+.project-card__links .btn.btn--ghost:visited,
+.project-card__links .btn.btn--ghost:focus,
+.project-card__links .btn.btn--ghost:hover {
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
 }
 
-.project-link {
-  color: $accent;
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
+.project-card__links .btn.btn--ghost:hover { border-color: var(--accent); }
 
-  &:hover,
-  &:focus-visible {
-    border-bottom-color: $accent;
-    outline: none;
-  }
+.project-card__tags .pill,
+.project-card__tags .tag {
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
 }
 
 @media print {
-  .portfolio { margin-top: .5rem; }
+  .portfolio {
+    margin-top: .5rem;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+  }
+
   .project-card { break-inside: avoid; page-break-inside: avoid; }
-  .project-link[href^="http"]::after { content: " (" attr(href) ")"; }
+
+  .project-card__links a[href^="http"]::after { content: " (" attr(href) ")"; }
 }

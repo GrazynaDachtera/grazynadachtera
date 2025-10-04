@@ -1,3 +1,6 @@
+
+@use "@/styles/ui";
+
 :root {
   --accent: #114538;
   --text: #3f4041;
@@ -73,22 +76,12 @@ $resume-maxw: 900px;
   &__content { display: grid; gap: .55rem; }
 
   .accent-gradient {
-    --g: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent) 65%, #22d3ee));
-    background: var(--g);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
     font-size: clamp(1.8rem, 3.6vw, 2.3rem);
     font-weight: 800;
     letter-spacing: .2px;
     margin: 0;
     line-height: 1.05;
-
-    @media (prefers-reduced-motion: no-preference) {
-      &:hover { background-size: 200% 100%; animation: sheen 1.25s linear forwards; }
-    }
   }
-  @keyframes sheen { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
 
   &__role {
     display: flex;
@@ -141,21 +134,6 @@ $resume-maxw: 900px;
     flex-wrap: wrap;
     gap: .55rem;
 
-    .btn {
-      appearance: none;
-      border-radius: 999px;
-      padding: .6rem 1rem;
-      font-weight: 700;
-      font-size: .98rem;
-      border: 1px solid transparent;
-      text-decoration: none;
-      line-height: 1;
-      transition: transform .06s ease, background-color .2s, border-color .2s;
-      &:active { transform: translateY(1px); }
-    }
-    .btn--primary { background: var(--accent); color: #fff; border-color: var(--accent); }
-    .btn--ghost   { background: transparent; color: var(--text); border-color: var(--border); }
-    .btn--ghost:hover { border-color: color-mix(in srgb, var(--accent) 50%, var(--border)); }
     .btn--ghost:last-child { border-style: dashed; }
   }
 
@@ -239,13 +217,9 @@ $resume-maxw: 900px;
 }
 
 .resume-header__role .badge,
-.resume-header__availability .chip {
-  color: #3f4041 !important;
-}
+.resume-header__availability .chip { color: #3f4041 !important; }
 
 .resume-header__cta .btn.btn--ghost,
 .resume-header__cta .btn.btn--ghost:visited,
 .resume-header__cta .btn.btn--ghost:focus,
-.resume-header__cta .btn.btn--ghost:hover {
-  color: #3f4041 !important;
-}
+.resume-header__cta .btn.btn--ghost:hover { color: #3f4041 !important; }

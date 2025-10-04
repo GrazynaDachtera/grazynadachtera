@@ -2,6 +2,7 @@
 
 import React from "react";
 import "./Portfolio.scss";
+import { Poppins } from "next/font/google";
 
 export type Project = {
   title: string;
@@ -16,6 +17,12 @@ export type Project = {
   order: number;
   wide?: boolean;
 };
+
+const poppins = Poppins({
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
+});
 
 const p = (x: Project) => x;
 
@@ -142,10 +149,10 @@ const PROJECTS = [
     order: 5,
     wide: true,
   }),
-] as const satisfies readonly Project[];
+] as const;
 
 function Tag({ children }: { children: React.ReactNode }) {
-  return <span className="tag">{children}</span>;
+  return <span className="tag pill">{children}</span>;
 }
 
 export default function Portfolio() {
@@ -154,11 +161,11 @@ export default function Portfolio() {
   return (
     <section
       id="portfolio"
-      className="portfolio"
+      className={`portfolio ${poppins.className}`}
       aria-label="Portfolio projects"
     >
       <header className="portfolio__header">
-        <h2 className="portfolio__title">Portfolio</h2>
+        <h2 className="portfolio__title accent-gradient">Portfolio</h2>
         <p className="portfolio__subtitle">
           A few representative projects. Each card lists stack, role, and
           measurable outcomes.
@@ -225,26 +232,21 @@ export default function Portfolio() {
                     href={p.siteUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="project-link"
+                    className="btn btn--ghost"
                     aria-label={`Open live site: ${p.title}`}
                   >
                     Live
                   </a>
                   {p.repoUrl && (
-                    <>
-                      <span aria-hidden="true" className="dot">
-                        •
-                      </span>
-                      <a
-                        href={p.repoUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="project-link"
-                        aria-label={`View code on GitHub: ${p.title}`}
-                      >
-                        Code
-                      </a>
-                    </>
+                    <a
+                      href={p.repoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn--ghost"
+                      aria-label={`View code on GitHub: ${p.title}`}
+                    >
+                      Code
+                    </a>
                   )}
                 </p>
               </article>
