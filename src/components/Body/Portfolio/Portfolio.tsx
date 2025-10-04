@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import "./Portfolio.scss";
 import { Poppins } from "next/font/google";
 
@@ -16,6 +17,11 @@ export type Project = {
   repoUrl?: string;
   order: number;
   wide?: boolean;
+  logo?: {
+    src: string;
+    alt?: string;
+    bg?: string;
+  };
 };
 
 const poppins = Poppins({
@@ -54,7 +60,9 @@ const PROJECTS = [
     repoUrl: "https://github.com/GrazynaDachtera/SasiedzkiLazarz.git",
     order: 1,
     wide: true,
+    logo: { src: "/logo1.png", alt: "Sąsiedzki Łazarz logo" },
   }),
+
   p({
     title: "Kuzi Sport",
     siteUrl: "https://kuzisportreact-mxhw.vercel.app/",
@@ -155,6 +163,40 @@ function Tag({ children }: { children: React.ReactNode }) {
   return <span className="tag pill">{children}</span>;
 }
 
+function BrandLogo({ logo, title }: { logo?: Project["logo"]; title: string }) {
+  if (!logo?.src) {
+    const initials = title
+      .split(/\s+/)
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((w) => w[0]?.toUpperCase())
+      .join("");
+    return (
+      <div
+        className="project-card__brand project-card__brand--fallback"
+        aria-hidden="true"
+      >
+        <span>{initials || "•"}</span>
+      </div>
+    );
+  }
+  return (
+    <div
+      className="project-card__brand"
+      style={
+        logo.bg ? ({ background: logo.bg } as React.CSSProperties) : undefined
+      }
+    >
+      <Image
+        src={logo.src}
+        alt={logo.alt || `${title} logo`}
+        fill
+        sizes="44px"
+      />
+    </div>
+  );
+}
+
 export default function Portfolio() {
   const items = [...PROJECTS].sort((a, b) => a.order - b.order);
 
@@ -187,26 +229,29 @@ export default function Portfolio() {
                 itemType="https://schema.org/CreativeWork"
               >
                 <div className="project-card__head">
-                  <h3
-                    id={headingId}
-                    className="project-card__title"
-                    itemProp="name"
-                  >
-                    <a
-                      href={p.siteUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`Open live site: ${p.title}`}
-                      itemProp="url"
+                  <BrandLogo logo={p.logo} title={p.title} />
+                  <div className="project-card__head-text">
+                    <h3
+                      id={headingId}
+                      className="project-card__title"
+                      itemProp="name"
                     >
-                      {p.title}
-                    </a>
-                  </h3>
-                  <p className="project-card__meta">
-                    <span>{p.role}</span>
-                    <span aria-hidden="true"> · </span>
-                    <time>{p.period}</time>
-                  </p>
+                      <a
+                        href={p.siteUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Open live site: ${p.title}`}
+                        itemProp="url"
+                      >
+                        {p.title}
+                      </a>
+                    </h3>
+                    <p className="project-card__meta">
+                      <span>{p.role}</span>
+                      <span aria-hidden="true"> · </span>
+                      <time>{p.period}</time>
+                    </p>
+                  </div>
                 </div>
 
                 <p className="project-card__summary" itemProp="description">

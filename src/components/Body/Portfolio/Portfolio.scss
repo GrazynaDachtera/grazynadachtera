@@ -6,15 +6,23 @@ $border: var(--border);
 $surface: var(--surface);
 $shadow1: var(--shadow-1);
 
-/* one source of truth for title & meta size */
 $heading-size: clamp(1.05rem, 1.6vw, 1.25rem);
 
+.accent-gradient {
+  font-size: clamp(1.8rem, 3.6vw, 2.3rem);
+  font-weight: 800;
+  letter-spacing: .2px;
+  margin: 0;
+  line-height: 1.05;
+}
+
 .portfolio {
-  @include ui.card(20px, 1.5rem);
   max-width: 900px;
   margin: 1.25rem auto 0;
+  padding: 0 1rem;
+  color: var(--text);
 
-  @media (min-width: 640px) { padding: 1.75rem 2rem; }
+  @media (min-width: 640px) { padding: 0 1.25rem; }
 
   &__header { margin-bottom: .75rem; }
 
@@ -30,6 +38,8 @@ $heading-size: clamp(1.05rem, 1.6vw, 1.25rem);
     margin: 0 0 .9rem;
     color: $text;
     font-size: 1rem;
+    line-height: 1.7;
+    font-weight: 400;
   }
 
   &__grid {
@@ -51,24 +61,69 @@ $heading-size: clamp(1.05rem, 1.6vw, 1.25rem);
 
 .project-card {
   background: $surface;
-  border: 0;
-  border-radius: 16px;
-  padding: 1rem;
+  border: 1px solid $border;
+  border-radius: 20px;
+  padding: 1.5rem;
   display: grid;
   gap: .7rem;
   box-shadow: $shadow1;
-  color: $text;
+  color: $text !important;
+  position: relative;
+
+  @media (min-width: 640px) { padding: 1.75rem 2rem; }
 
   &:focus-within {
     outline: 2px solid $accent;
     outline-offset: 2px;
   }
 
+  &,
+  p,
+  li,
+  span,
+  time,
+  a {
+    color: $text !important;
+  }
+
   &__head {
     display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: .75rem;
+    align-items: flex-start;
+    gap: .85rem;
+  }
+
+  &__brand {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    flex: 0 0 44px;
+    border: 1px solid $border;
+    border-radius: 10px;
+    background: color-mix(in srgb, $text 4%, $surface);
+    overflow: hidden;
+    box-shadow: $shadow1;
+
+    img { object-fit: contain; }
+  }
+
+  &__brand--fallback {
+    display: grid;
+    place-items: center;
+
+    span {
+      font-weight: 700;
+      font-size: .95rem;
+      letter-spacing: .2px;
+      color: $text;
+      opacity: .9;
+    }
+  }
+
+  &__head-text {
+    display: grid;
+    gap: .2rem;
+    min-width: 0;
+    flex: 1 1 auto;
   }
 
   &__title {
@@ -76,10 +131,10 @@ $heading-size: clamp(1.05rem, 1.6vw, 1.25rem);
     font-size: $heading-size;
     font-weight: 700;
     letter-spacing: .2px;
-    color: $accent;
+    color: $text !important;
 
     a {
-      color: inherit;
+      color: inherit !important;
       text-decoration: none;
       border-bottom: 1px solid transparent;
 
@@ -94,24 +149,25 @@ $heading-size: clamp(1.05rem, 1.6vw, 1.25rem);
   &__meta {
     margin: 0;
     white-space: nowrap;
-    font-size: $heading-size;
-    font-weight: 700;
+    font-size: clamp(.9rem, .88rem + .15vw, 1.02rem);
+    font-weight: 600;
     letter-spacing: .2px;
-    color: $accent;
+    color: $text !important;
   }
 
   &__summary {
     margin: 0;
     font-size: 1rem;
-    line-height: 1.6;
-    color: $text;
+    line-height: 1.7;
+    font-weight: 400;
+    color: $text !important;
   }
 
   &__highlights {
     list-style: disc;
     padding-left: 1.1rem;
     margin: 0;
-    color: $text;
+    color: $text !important;
 
     li { margin: .2rem 0; }
   }
@@ -130,33 +186,24 @@ $heading-size: clamp(1.05rem, 1.6vw, 1.25rem);
   }
 }
 
+.project-card__tags .pill,
+.project-card__tags .tag {
+  color: var(--accent);
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--border));
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
 .project-card__links .btn.btn--ghost,
 .project-card__links .btn.btn--ghost:visited,
 .project-card__links .btn.btn--ghost:focus,
 .project-card__links .btn.btn--ghost:hover {
-  color: var(--accent);
-  border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+  color: var(--text) !important;
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--border));
 }
 
 .project-card__links .btn.btn--ghost:hover { border-color: var(--accent); }
 
-.project-card__tags .pill,
-.project-card__tags .tag {
-  color: var(--accent);
-  border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
-  background: color-mix(in srgb, var(--accent) 10%, transparent);
-}
-
 @media print {
-  .portfolio {
-    margin-top: .5rem;
-    padding: 0;
-    background: transparent;
-    border: 0;
-    box-shadow: none;
-  }
-
   .project-card { break-inside: avoid; page-break-inside: avoid; }
-
   .project-card__links a[href^="http"]::after { content: " (" attr(href) ")"; }
 }
