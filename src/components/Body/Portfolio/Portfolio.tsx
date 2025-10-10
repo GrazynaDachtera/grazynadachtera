@@ -13,15 +13,11 @@ export type Project = {
   period: string;
   tags: readonly string[];
   highlights: readonly string[];
-  featured: boolean;
+  featured: boolean; // kept in data model but not rendered
   repoUrl?: string;
   order: number;
   wide?: boolean;
-  logo?: {
-    src: string;
-    alt?: string;
-    bg?: string;
-  };
+  logo?: { src: string; alt?: string; bg?: string };
 };
 
 const poppins = Poppins({
@@ -62,7 +58,6 @@ const PROJECTS = [
     wide: true,
     logo: { src: "/logo1.png", alt: "Sąsiedzki Łazarz logo" },
   }),
-
   p({
     title: "Kuzi Sport",
     siteUrl: "https://kuzisportreact-mxhw.vercel.app/",
@@ -134,7 +129,7 @@ const PROJECTS = [
     title: "summ-it",
     siteUrl: "https://summ-it.pl",
     summary:
-      "Full-site Lighthouse audit of summ-it.pl (desktop and mobile) across Performance, Accessibility, Best Practices, and SEO-delivering a prioritized fix plan to reduce Speed Index/Total Blocking Time, stabilize layout, and close key a11y/SEO gaps.",
+      "Full-site Lighthouse audit of summ-it.pl (desktop and mobile) across Performance, Accessibility, Best Practices, and SEO—delivering a prioritized fix plan to reduce Speed Index/Total Blocking Time, stabilize layout, and close key a11y/SEO gaps.",
     role: "Associate IT Specialist",
     period: "2023-2024",
     tags: [
@@ -219,21 +214,29 @@ export default function Portfolio() {
       </header>
 
       <ul className="portfolio__grid" role="list">
-        {items.map((p, i) => {
-          const headingId = `${slugify(p.title)}-${i}`;
+        {items.map((proj, i) => {
+          const headingId = `${slugify(proj.title)}-${i}`;
+          const summaryId = `${headingId}-summary`;
+
           return (
             <li
-              key={p.title}
-              className={`portfolio__item${p.wide ? " is-wide" : ""}`}
+              key={proj.title}
+              className={`portfolio__item${proj.wide ? " is-wide" : ""}`}
             >
               <article
                 className="project-card"
                 aria-labelledby={headingId}
+                aria-describedby={summaryId}
                 itemScope
                 itemType="https://schema.org/CreativeWork"
               >
-                <div className="project-card__head">
-                  <BrandLogo logo={p.logo} title={p.title} />
+                {/* Top accent line */}
+                <span className="project-card__accent" aria-hidden="true" />
+
+                {/* HEAD */}
+                <header className="project-card__head">
+                  <BrandLogo logo={proj.logo} title={proj.title} />
+
                   <div className="project-card__head-text">
                     <h3
                       id={headingId}
@@ -241,63 +244,82 @@ export default function Portfolio() {
                       itemProp="name"
                     >
                       <a
-                        href={p.siteUrl}
+                        href={proj.siteUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        aria-label={`Open live site: ${p.title}`}
+                        aria-label={`Open live site: ${proj.title}`}
                         itemProp="url"
                       >
-                        {p.title}
+                        {proj.title}
                       </a>
                     </h3>
+
                     <p className="project-card__meta">
-                      <span>{p.role}</span>
-                      <span aria-hidden="true"> · </span>
-                      <time>{p.period}</time>
+                      <span className="project-card__role">{proj.role}</span>
+                      <span aria-hidden="true" className="project-card__dot">
+                        •
+                      </span>
+                      <time itemProp="datePublished" dateTime={proj.period}>
+                        {proj.period}
+                      </time>
+                    </p>
+
+                    <p
+                      id={summaryId}
+                      className="project-card__summary"
+                      itemProp="description"
+                    >
+                      {proj.summary}
                     </p>
                   </div>
+                </header>
+
+                {/* CONTENT */}
+                <div className="project-card__content">
+                  {proj.highlights.length > 0 && (
+                    <ul className="project-card__highlights" role="list">
+                      {proj.highlights.map((h) => (
+                        <li key={h}>{h}</li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
 
-                <p className="project-card__summary" itemProp="description">
-                  {p.summary}
-                </p>
-
-                {p.highlights.length > 0 && (
-                  <ul className="project-card__highlights">
-                    {p.highlights.map((h) => (
-                      <li key={h}>{h}</li>
+                {/* FOOTER */}
+                <footer className="project-card__footer">
+                  <div className="project-card__tags" aria-label="Tech stack">
+                    {proj.tags.map((t) => (
+                      <Tag key={t}>{t}</Tag>
                     ))}
-                  </ul>
-                )}
+                  </div>
 
-                <div className="project-card__tags">
-                  {p.tags.map((t) => (
-                    <Tag key={t}>{t}</Tag>
-                  ))}
-                </div>
-
-                <p className="project-card__links">
-                  <a
-                    href={p.siteUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn--ghost--green"
-                    aria-label={`Open live site: ${p.title}`}
+                  <nav
+                    className="project-card__actions"
+                    aria-label="Project links"
                   >
-                    Live
-                  </a>
-                  {p.repoUrl && (
                     <a
-                      href={p.repoUrl}
+                      href={proj.siteUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn btn--ghost"
-                      aria-label={`View code on GitHub: ${p.title}`}
+                      className="btn btn--primary"
+                      aria-label={`Open live site: ${proj.title}`}
                     >
-                      Code
+                      Live
                     </a>
-                  )}
-                </p>
+
+                    {proj.repoUrl && (
+                      <a
+                        href={proj.repoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn btn--ghost"
+                        aria-label={`View code on GitHub: ${proj.title}`}
+                      >
+                        Code
+                      </a>
+                    )}
+                  </nav>
+                </footer>
               </article>
             </li>
           );

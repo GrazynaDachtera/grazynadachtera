@@ -1,13 +1,16 @@
 @use "@/styles/ui";
 
+/* ---------------- Theme tokens ---------------- */
 $accent: var(--accent);
 $text: var(--text);
+$muted: color-mix(in srgb, var(--text) 60%, transparent);
 $border: var(--border);
 $surface: var(--surface);
 $shadow1: var(--shadow-1);
 
 $heading-size: clamp(1.05rem, 1.6vw, 1.25rem);
 
+/* ---------------- Page header ---------------- */
 .accent-gradient {
   font-size: clamp(1.8rem, 3.6vw, 2.3rem);
   font-weight: 800;
@@ -17,7 +20,7 @@ $heading-size: clamp(1.05rem, 1.6vw, 1.25rem);
 }
 
 .portfolio {
-  max-width: 900px;
+  max-width: 980px;
   margin: 1.25rem auto 0;
   padding: 0 1rem;
   color: var(--text);
@@ -36,7 +39,7 @@ $heading-size: clamp(1.05rem, 1.6vw, 1.25rem);
 
   &__subtitle {
     margin: 0 0 .9rem;
-    color: $text;
+    color: $muted;
     font-size: 1rem;
     line-height: 1.7;
     font-weight: 400;
@@ -59,56 +62,117 @@ $heading-size: clamp(1.05rem, 1.6vw, 1.25rem);
   }
 }
 
+/* ===================== CARD ===================== */
 .project-card {
+  /* Symmetrical spacing + logo size token */
+  --card-py: 1.15rem;  /* top/bottom padding */
+  --card-px: 1.10rem;  /* left/right padding */
+  --logo-size: 44px;   /* square logo box */
+
+  position: relative;
   background: $surface;
   border: 1px solid $border;
-  border-radius: 20px;
-  padding: 1.5rem;
+  border-radius: 18px;
+  padding-block: var(--card-py);
+  padding-inline: var(--card-px);
   display: grid;
-  gap: .7rem;
+  grid-template-rows: auto 1fr auto; // head | content grows | footer at bottom
+  gap: .8rem;
   box-shadow: $shadow1;
   color: $text !important;
-  position: relative;
+  isolation: isolate;
 
-  @media (min-width: 640px) { padding: 1.75rem 2rem; }
+  @media (min-width: 640px) {
+    --card-py: 1.30rem;
+    --card-px: 1.40rem;
+  }
+
+  /* top accent bar */
+  &__accent {
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    height: 3px;
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, $accent 75%, #ffffff),
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+
+  &:hover { transform: translateY(-1px); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  }
 
   &:focus-within {
     outline: 2px solid $accent;
     outline-offset: 2px;
   }
 
-  &,
-  p,
-  li,
-  span,
-  time,
-  a {
-    color: $text !important;
-  }
-
+  /* ----- HEAD ----- */
   &__head {
-    display: flex;
-    align-items: center;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr var(--logo-size); /* text | logo (strict square) */
     gap: .85rem;
+    align-items: start;
   }
 
+  /* text block (left) */
+  &__head-text {
+    grid-column: 1 / 2;
+    display: flex;
+    flex-direction: column;
+    gap: .28rem;
+    min-width: 0;
+  }
+
+  /* === STRICT SQUARE LOGO (right) === */
   &__brand {
-    position: relative;
-    width: 44px;
-    height: 44px;
-    flex: 0 0 44px;
+    grid-column: 2 / 3;
+    justify-self: end;
+    align-self: start;
+
+    width: var(--logo-size);
+    aspect-ratio: 1 / 1;       /* guarantees square */
+    box-sizing: border-box;
+    overflow: hidden;
+    position: relative;        /* for next/image fill */
     border: 1px solid $border;
     border-radius: 10px;
     background: color-mix(in srgb, $text 4%, $surface);
-    overflow: hidden;
     box-shadow: $shadow1;
+    line-height: 0;
 
-    img { object-fit: contain; }
+    /* Next.js <Image> wrapper <span> → fill the square */
+    > span {
+      position: static !important;
+      display: block !important;
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    /* Actual <img> → cover the square edge-to-edge */
+    img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      object-position: center !important;
+      display: block;
+    }
   }
 
+  /* fallback initials (also square) */
   &__brand--fallback {
     display: grid;
     place-items: center;
+    width: var(--logo-size);
+    aspect-ratio: 1 / 1;
 
     span {
       font-weight: 700;
@@ -119,22 +183,12 @@ $heading-size: clamp(1.05rem, 1.6vw, 1.25rem);
     }
   }
 
-  &__head-text {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: .2rem;
-    min-width: 0;
-    min-height: 44px;
-    flex: 1 1 auto;
-  }
-
   &__title {
     margin: 0;
     font-size: $heading-size;
     font-weight: 700;
     letter-spacing: .2px;
-    color: $text !important;
+    line-height: 1.08;
 
     a {
       color: inherit !important;
@@ -151,30 +205,58 @@ $heading-size: clamp(1.05rem, 1.6vw, 1.25rem);
 
   &__meta {
     margin: 0;
-    white-space: nowrap;
+    display: inline-flex;
+    align-items: baseline;
+    gap: .45rem;
+    flex-wrap: wrap;
+    color: $muted;
     font-size: clamp(.9rem, .88rem + .15vw, 1.02rem);
     font-weight: 600;
     letter-spacing: .2px;
-    color: $text !important;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
+
+  &__dot { opacity: .45; }
 
   &__summary {
-    margin: 0;
+    margin: .15rem 0 0;
+    color: $text;
     font-size: 1rem;
-    line-height: 1.7;
+    line-height: 1.65;
     font-weight: 400;
-    color: $text !important;
   }
 
+  /* ----- CONTENT (highlights) ----- */
+  &__content { min-height: 0; }
+
+  /* GREEN BULLETS + tighter indent */
   &__highlights {
     list-style: disc;
-    padding-left: 1.1rem;
-    margin: 0;
-    color: $text !important;
+    list-style-position: outside;
+    padding-left: .9rem;   /* tighter left indent */
+    margin: .25rem 0 0;
+    display: grid;
+    gap: .4rem;            /* vertical spacing between items */
+  }
 
-    li { margin: .2rem 0; }
+  &__highlights li {
+    margin: 0;
+    line-height: 1.55;
+  }
+
+  &__highlights li::marker {
+    color: var(--accent);  /* green bullets */
+    font-size: .8em;
+  }
+
+  /* ----- FOOTER ----- */
+  &__footer {
+    display: grid;
+    gap: .75rem;
+    align-items: center;
+
+    @media (min-width: 560px) {
+      grid-template-columns: 1fr auto;
+    }
   }
 
   &__tags {
@@ -182,25 +264,34 @@ $heading-size: clamp(1.05rem, 1.6vw, 1.25rem);
     flex-wrap: wrap;
     gap: .4rem;
   }
+
+  &__actions {
+    display: inline-flex;
+    gap: .6rem;
+    flex-wrap: wrap;
+    justify-self: start;
+
+    @media (min-width: 560px) {
+      justify-self: end;
+    }
+  }
 }
 
+/* ---------------- Tags ---------------- */
 .project-card__tags .pill,
 .project-card__tags .tag {
   color: var(--accent);
   border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--border));
   background: color-mix(in srgb, var(--accent) 10%, transparent);
+  font-weight: 600;
+  letter-spacing: .2px;
+  padding: .28rem .6rem;
+  border-radius: 999px;
+  font-size: .85rem;
 }
 
-.project-card__links {
-  margin-top: .75rem;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: .6rem;
-}
-
-.project-card__links .btn {
+/* ---------------- Buttons ---------------- */
+.btn {
   --btn-h: 38px;
   height: var(--btn-h);
   padding: 0 .95rem;
@@ -212,37 +303,39 @@ $heading-size: clamp(1.05rem, 1.6vw, 1.25rem);
   border-radius: 999px;
   border: 1px solid transparent;
   text-decoration: none;
+  font-weight: 700;
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: background-color .2s ease, color .2s ease, border-color .2s ease, transform .15s ease;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
 }
 
-.project-card__links .btn.btn--ghost {
+.btn--primary {
+  color: var(--surface) !important;
+  background-color: var(--accent) !important;
+  border-color: var(--accent);
+
+  &:hover { transform: translateY(-1px); }
+}
+
+.btn--ghost {
   background: transparent;
   color: var(--accent) !important;
-  border-color: var(--border);
-}
-.project-card__links .btn.btn--ghost:hover,
-.project-card__links .btn.btn--ghost:visited,
-.project-card__links .btn.btn--ghost:focus {
-  text-decoration: none;
-}
-.project-card__links .btn.btn--ghost--green {
-  color: var(--border) !important;
-  background-color: var(--accent) !important;
-  border: none;
-  text-decoration: none !important;
+  border-color: $border;
+
+  &:hover,
+  &:focus-visible {
+    border-color: color-mix(in srgb, $accent 45%, $border);
+  }
 }
 
-.project-card__links .btn:hover,
-.project-card__links .btn:visited,
-.project-card__links .btn:focus {
-  text-decoration: none;
-}
-
-.project-card__links .btn:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
+/* ---------------- Print ---------------- */
 @media print {
   .project-card { break-inside: avoid; page-break-inside: avoid; }
-  .project-card__links a[href^="http"]::after { content: " (" attr(href) ")"; }
+  .project-card__actions a[href^="http"]::after { content: " (" attr(href) ")"; }
 }
