@@ -91,6 +91,7 @@ const PROJECTS = [
     repoUrl: "https://github.com/GrazynaDachtera/kuzisportreact",
     order: 2,
     wide: true,
+    logo: { src: "/logo2.png", alt: "Kuzi Sport logo" },
   }),
   p({
     title: "Kongwell",
@@ -109,6 +110,7 @@ const PROJECTS = [
     repoUrl: "https://github.com/GrazynaDachtera/Kongwell",
     order: 3,
     wide: true,
+    logo: { src: "/logo3.svg", alt: "Kongwell logo" },
   }),
   p({
     title: "Global Property",
@@ -126,6 +128,7 @@ const PROJECTS = [
     repoUrl: "https://github.com/ProAdvisorGroup",
     order: 4,
     wide: true,
+    logo: { src: "/logo4.png", alt: "GlobalProperty logo" },
   }),
   p({
     title: "summ-it",
@@ -156,6 +159,7 @@ const PROJECTS = [
     repoUrl: "",
     order: 5,
     wide: true,
+    logo: { src: "/logo5.png", alt: "Summ-it logo" },
   }),
 ] as const;
 
@@ -277,7 +281,7 @@ export default function Portfolio() {
                     href={p.siteUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn btn--ghost"
+                    className="btn btn--ghost--green"
                     aria-label={`Open live site: ${p.title}`}
                   >
                     Live

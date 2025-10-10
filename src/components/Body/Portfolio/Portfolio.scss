@@ -88,7 +88,7 @@ $heading-size: clamp(1.05rem, 1.6vw, 1.25rem);
 
   &__head {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: .85rem;
   }
 
@@ -120,9 +120,12 @@ $heading-size: clamp(1.05rem, 1.6vw, 1.25rem);
   }
 
   &__head-text {
-    display: grid;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     gap: .2rem;
     min-width: 0;
+    min-height: 44px;
     flex: 1 1 auto;
   }
 
@@ -153,6 +156,8 @@ $heading-size: clamp(1.05rem, 1.6vw, 1.25rem);
     font-weight: 600;
     letter-spacing: .2px;
     color: $text !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__summary {
@@ -177,13 +182,6 @@ $heading-size: clamp(1.05rem, 1.6vw, 1.25rem);
     flex-wrap: wrap;
     gap: .4rem;
   }
-
-  &__links {
-    margin: .2rem 0 0;
-    display: flex;
-    align-items: center;
-    gap: .5rem;
-  }
 }
 
 .project-card__tags .pill,
@@ -193,15 +191,56 @@ $heading-size: clamp(1.05rem, 1.6vw, 1.25rem);
   background: color-mix(in srgb, var(--accent) 10%, transparent);
 }
 
-.project-card__links .btn.btn--ghost,
-.project-card__links .btn.btn--ghost:visited,
-.project-card__links .btn.btn--ghost:focus,
-.project-card__links .btn.btn--ghost:hover {
-  color: var(--text) !important;
-  border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--border));
+.project-card__links {
+  margin-top: .75rem;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .6rem;
 }
 
-.project-card__links .btn.btn--ghost:hover { border-color: var(--accent); }
+.project-card__links .btn {
+  --btn-h: 38px;
+  height: var(--btn-h);
+  padding: 0 .95rem;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  text-decoration: none;
+}
+
+.project-card__links .btn.btn--ghost {
+  background: transparent;
+  color: var(--accent) !important;
+  border-color: var(--border);
+}
+.project-card__links .btn.btn--ghost:hover,
+.project-card__links .btn.btn--ghost:visited,
+.project-card__links .btn.btn--ghost:focus {
+  text-decoration: none;
+}
+.project-card__links .btn.btn--ghost--green {
+  color: var(--border) !important;
+  background-color: var(--accent) !important;
+  border: none;
+  text-decoration: none !important;
+}
+
+.project-card__links .btn:hover,
+.project-card__links .btn:visited,
+.project-card__links .btn:focus {
+  text-decoration: none;
+}
+
+.project-card__links .btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
 
 @media print {
   .project-card { break-inside: avoid; page-break-inside: avoid; }
