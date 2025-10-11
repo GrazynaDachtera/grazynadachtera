@@ -63,7 +63,7 @@ $heading-size: clamp(1.05rem, 1.6vw, 1.25rem);
   --logo-size: 44px;
   --card-radius: 18px;
   --summary-size: 1rem;
-  --summary-lh: 1.55;
+  --summary-lh: 1.5;
   --highlight-size: clamp(.9rem, calc(var(--summary-size) - .05rem), var(--summary-size));
   --highlight-lh: var(--summary-lh);
 
@@ -155,6 +155,8 @@ $heading-size: clamp(1.05rem, 1.6vw, 1.25rem);
   }
 }
 
+.projectCardBrand { background: #fff; }
+
 .projectCardBrandFallback {
   display: grid;
   place-items: center;
@@ -218,27 +220,31 @@ $heading-size: clamp(1.05rem, 1.6vw, 1.25rem);
   list-style: none;
   margin: .2rem 0 0;
   padding: 0;
-  color: $textHighlights;
+  color: var(--text-highlights);
   font-weight: 400;
-
   &, li { font-size: var(--highlight-size); }
 }
 
 .projectCardHighlights li {
   display: grid;
-  grid-template-columns: 1rem 1fr;
-  gap: .5rem;
+  grid-template-columns: 1.2rem 1fr;
+  column-gap: .55rem;
+  align-items: center;
   margin: 0;
   line-height: var(--highlight-lh);
 }
 
 .projectCardHighlights li::before {
   content: "";
-  width: .55rem;
-  height: 2px;
-  border-radius: 2px;
-  background: color-mix(in srgb, $accent 65%, $textHighlights);
-  margin-top: .75em;
+  width: 12px;
+  height: 12px;
+  background: $accent;
+  -webkit-mask: url('data:image/svg+xml;utf8,\
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">\
+<path d="M9 6l6 6-6 6" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>') center/contain no-repeat;
+  mask: url('data:image/svg+xml;utf8,\
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">\
+<path d="M9 6l6 6-6 6" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>') center/contain no-repeat;
 }
 
 .projectCardHighlights li + li { margin-top: .25rem; }
