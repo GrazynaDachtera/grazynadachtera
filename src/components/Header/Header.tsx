@@ -147,7 +147,7 @@ export default function Header() {
         "@type": "Person",
         name: "Grażyna Dachtera",
         jobTitle: "Frontend Developer (React/Next.js)",
-        image: "/profileImage1.jpg",
+        image: "/profileImage.jpg",
         email: `mailto:${EMAIL}`,
         telephone: "+48 733 828 924",
         sameAs: [
@@ -178,7 +178,7 @@ export default function Header() {
     >
       <div className={`${classNames.photo} glow`}>
         <Image
-          src="/profileImage1.jpg"
+          src="/profileImage.jpg"
           alt="Grażyna Dachtera headshot"
           width={156}
           height={156}
