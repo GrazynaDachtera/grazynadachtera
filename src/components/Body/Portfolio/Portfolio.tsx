@@ -1,9 +1,9 @@
 "use client";
 
-import React from "react";
 import Image from "next/image";
-import "./Portfolio.scss";
 import { Poppins } from "next/font/google";
+import type { CSSProperties, ReactNode } from "react";
+import "./Portfolio.scss";
 
 export type Project = {
   title: string;
@@ -26,10 +26,10 @@ const poppins = Poppins({
   display: "swap",
 });
 
-const p = (x: Project) => x;
+/* ---------- Data ---------- */
 
 const PROJECTS = [
-  p({
+  {
     title: "Sąsiedzki Łazarz",
     siteUrl: "https://www.sasiedzkilazarz.pl/",
     summary:
@@ -46,19 +46,19 @@ const PROJECTS = [
       "Accessibility",
     ],
     highlights: [
-      "Delivered MVP to production in 3 weeks",
-      "Built with Next.js App Router (TypeScript): file-based routing and shared layouts",
-      "Contact form with explicit RODO/GDPR consent (EmailJS, serverless)",
-      "Legal and accessibility pages: RODO, Privacy Policy, Accessibility, Terms",
-      "Responsive SCSS and mobile-first performance optimizations",
+      "Shipped MVP in 3 weeks.",
+      "Next.js App Router (TS): file-based routing & shared layouts.",
+      "GDPR-compliant contact form with explicit consent (EmailJS/serverless).",
+      "Legal & a11y pages: Privacy, Terms, Accessibility, RODO.",
+      "Mobile-first SCSS with image/loading optimizations.",
     ],
     featured: true,
     repoUrl: "https://github.com/GrazynaDachtera/SasiedzkiLazarz.git",
     order: 1,
     wide: true,
     logo: { src: "/logo1.png", alt: "Sąsiedzki Łazarz logo" },
-  }),
-  p({
+  },
+  {
     title: "Kuzi Sport",
     siteUrl: "https://kuzisportreact-mxhw.vercel.app/",
     summary:
@@ -75,20 +75,19 @@ const PROJECTS = [
       "Accessibility",
     ],
     highlights: [
-      "End-to-end ownership: designed, built, and deployed on Vercel with preview deployments and env-scoped secrets",
-      "Production-ready forms: Trial Sign-Up and Contact with client-side validation, loading/disabled states, and RODO/GDPR consent (Contact via EmailJS)",
-      "Mobile-first performance: responsive SCSS, next/image optimizations, and lazy loading for a fast first paint",
-      "Dynamic schedule (2025/2026) with search and filters by location and discipline",
-      "Clear pricing and news/updates with social integrations and prominent CTAs",
-      "App Router (TypeScript) architecture: file-based routing, shared layouts, and an accessible, semantic UI",
+      "Owned design → deploy on Vercel with preview envs & secrets.",
+      "Production-ready forms (Trial Sign-Up, Contact): validation, loading/disabled, GDPR consent (EmailJS).",
+      "Mobile-first performance: responsive SCSS, next/image, lazy loading.",
+      "Dynamic schedule 2025/26 with search & filters by location/discipline.",
+      "Pricing, news/blog, social integrations, and prominent CTAs.",
     ],
     featured: true,
     repoUrl: "https://github.com/GrazynaDachtera/kuzisportreact",
     order: 2,
     wide: true,
     logo: { src: "/logo2.png", alt: "Kuzi Sport logo" },
-  }),
-  p({
+  },
+  {
     title: "Kongwell",
     siteUrl: "https://kongwell.com/",
     summary:
@@ -97,17 +96,17 @@ const PROJECTS = [
     period: "2025",
     tags: ["Next.js", "React", "TypeScript", "SCSS", "Accessibility"],
     highlights: [
-      "Single-page landing with clear section hierarchy",
-      "Mobile-first, responsive layout with strong typographic hierarchy and readable contrast",
-      "Fast first paint and distraction-free UI focused on information hierarchy",
+      "Single-page landing with clear section flow.",
+      "Responsive layout with strong type/contrast.",
+      "Fast first paint and distraction-free hierarchy.",
     ],
     featured: false,
     repoUrl: "https://github.com/GrazynaDachtera/Kongwell",
     order: 3,
     wide: true,
     logo: { src: "/logo3.svg", alt: "Kongwell logo" },
-  }),
-  p({
+  },
+  {
     title: "Global Property",
     siteUrl: "https://globalproperty-group.com/",
     summary:
@@ -116,20 +115,20 @@ const PROJECTS = [
     period: "2024-2025",
     tags: ["Next.js", "React", "TypeScript", "SCSS", "Node.js"],
     highlights: [
-      "Converted Figma designs into reusable React/TypeScript components with SCSS modules",
-      "Integrated Node.js/Next.js APIs for property data and lead/contact flows",
+      "Translated Figma into reusable React/TS components (SCSS modules).",
+      "Integrated Next.js APIs for property data and lead capture.",
     ],
     featured: true,
     repoUrl: "https://github.com/ProAdvisorGroup",
     order: 4,
     wide: true,
     logo: { src: "/logo4.png", alt: "GlobalProperty logo" },
-  }),
-  p({
+  },
+  {
     title: "summ-it",
     siteUrl: "https://summ-it.pl",
     summary:
-      "Full-site Lighthouse audit of summ-it.pl (desktop and mobile) across Performance, Accessibility, Best Practices, and SEO—delivering a prioritized fix plan to reduce Speed Index/Total Blocking Time, stabilize layout, and close key a11y/SEO gaps.",
+      "Full-site Lighthouse audit of summ-it.pl (desktop & mobile) across Performance, Accessibility, Best Practices, and SEO—delivering a prioritized fix plan.",
     role: "Associate IT Specialist",
     period: "2023-2024",
     tags: [
@@ -142,24 +141,62 @@ const PROJECTS = [
       "Lazy Loading",
     ],
     highlights: [
-      "Lighthouse-driven review covering Performance, Accessibility, Best Practices, and SEO (desktop and mobile)",
-      "Performance: defined img width/height, cut network payloads, modernized/compressed images, lazy-loaded assets, and reduced unused JS to improve SI/TBT",
-      "Accessibility: added accessible names for buttons/links and fixed heading hierarchy for screen readers",
-      "SEO: added meta descriptions and descriptive alt text for images; improved crawl snippets and image indexing",
-      "Best practices: corrected cookie attributes (Secure/SameSite/HttpOnly) and set font-display with proper preloading",
-      "Page-level fixes: lazy-loaded Google Maps, added <iframe> titles, and addressed server response time on Case Study pages",
-      "UX notes: cleaner spacing, centered CTAs/footers, and more intuitive slider/navigation adjustments",
+      "Lighthouse audit: Performance, Accessibility, Best Practices, SEO (desktop & mobile).",
+      "Performance: defined media sizes, optimized/compressed images, lazy-loaded assets, reduced unused JS.",
+      "Accessibility: added accessible names; fixed heading hierarchy.",
+      "SEO: meta descriptions; descriptive alt text; improved snippets/indexing.",
+      "Best practices: cookie flags (Secure/SameSite/HttpOnly); font-display & preload.",
+      "Page fixes: lazy-loaded Google Maps; iframe titles; improved Case Study response time.",
+      "UX: tighter spacing, centered CTAs/footers, clearer slider/navigation.",
     ],
     featured: true,
     repoUrl: "",
     order: 5,
     wide: true,
     logo: { src: "/logo5.png", alt: "Summ-it logo" },
-  }),
-] as const;
+  },
+] as const satisfies readonly Project[];
 
-function Tag({ children }: { children: React.ReactNode }) {
-  return <span className="tag pill">{children}</span>;
+/* ---------- Utilities ---------- */
+
+function slugify(s: string): string {
+  return s
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)+/g, "");
+}
+
+/* ---------- UI ---------- */
+
+function Tag({ children }: { children: ReactNode }) {
+  // stays "pill" on purpose to keep global styling hooks
+  return <span className="pill">{children}</span>;
+}
+
+function ExternalLink({
+  href,
+  children,
+  className,
+  ariaLabel,
+}: {
+  href: string;
+  children: ReactNode;
+  className?: string;
+  ariaLabel?: string;
+}) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={className}
+      aria-label={ariaLabel}
+    >
+      {children}
+    </a>
+  );
 }
 
 function BrandLogo({ logo, title }: { logo?: Project["logo"]; title: string }) {
@@ -172,7 +209,7 @@ function BrandLogo({ logo, title }: { logo?: Project["logo"]; title: string }) {
       .join("");
     return (
       <div
-        className="project-card__brand project-card__brand--fallback"
+        className="projectCardBrand projectCardBrandFallback"
         aria-hidden="true"
       >
         <span>{initials || "•"}</span>
@@ -181,10 +218,8 @@ function BrandLogo({ logo, title }: { logo?: Project["logo"]; title: string }) {
   }
   return (
     <div
-      className="project-card__brand"
-      style={
-        logo.bg ? ({ background: logo.bg } as React.CSSProperties) : undefined
-      }
+      className="projectCardBrand"
+      style={logo.bg ? ({ background: logo.bg } as CSSProperties) : undefined}
     >
       <Image
         src={logo.src}
@@ -196,144 +231,123 @@ function BrandLogo({ logo, title }: { logo?: Project["logo"]; title: string }) {
   );
 }
 
-export default function Portfolio() {
-  const items = [...PROJECTS].sort((a, b) => a.order - b.order);
+function ProjectCard({ proj, index }: { proj: Project; index: number }) {
+  const headingId = `${slugify(proj.title)}-${index}`;
+  const summaryId = `${headingId}-summary`;
 
+  return (
+    <li
+      className={`portfolioItem${proj.wide ? " isWide" : ""}`}
+      key={proj.title}
+    >
+      <article
+        className="projectCard"
+        aria-labelledby={headingId}
+        aria-describedby={summaryId}
+        itemScope
+        itemType="https://schema.org/CreativeWork"
+      >
+        <span className="projectCardAccent" aria-hidden="true" />
+
+        <header className="projectCardHead">
+          <BrandLogo logo={proj.logo} title={proj.title} />
+
+          <div className="projectCardHeadText">
+            <h3 id={headingId} className="projectCardTitle" itemProp="name">
+              <ExternalLink
+                href={proj.siteUrl}
+                ariaLabel={`Open live site: ${proj.title}`}
+              >
+                {proj.title}
+              </ExternalLink>
+            </h3>
+
+            <p className="projectCardMeta">
+              <span className="projectCardRole">{proj.role}</span>
+              <span aria-hidden="true" className="projectCardDot">
+                •
+              </span>
+              <time itemProp="datePublished" dateTime={proj.period}>
+                {proj.period}
+              </time>
+            </p>
+
+            <p
+              id={summaryId}
+              className="projectCardSummary"
+              itemProp="description"
+            >
+              {proj.summary}
+            </p>
+          </div>
+        </header>
+
+        <div className="projectCardContent">
+          {proj.highlights.length > 0 && (
+            <ul className="projectCardHighlights" role="list">
+              {proj.highlights.map((h) => (
+                <li key={h}>{h}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        <footer className="projectCardFooter">
+          <div className="projectCardTags" aria-label="Tech stack">
+            {proj.tags.map((t) => (
+              <Tag key={t}>{t}</Tag>
+            ))}
+          </div>
+
+          <nav className="projectCardActions" aria-label="Project links">
+            <ExternalLink
+              href={proj.siteUrl}
+              className="btn btn--primary"
+              ariaLabel={`Open live site: ${proj.title}`}
+            >
+              Live
+            </ExternalLink>
+
+            {proj.repoUrl && (
+              <ExternalLink
+                href={proj.repoUrl}
+                className="btn btn--ghost"
+                ariaLabel={`View code on GitHub: ${proj.title}`}
+              >
+                Code
+              </ExternalLink>
+            )}
+          </nav>
+        </footer>
+      </article>
+    </li>
+  );
+}
+
+/* ---------- Component ---------- */
+
+const PROJECTS_SORTED = [...PROJECTS].sort((a, b) => a.order - b.order);
+
+export default function Portfolio() {
   return (
     <section
       id="portfolio"
       className={`portfolio ${poppins.className}`}
       aria-label="Portfolio projects"
     >
-      <header className="portfolio__header">
-        <h2 className="portfolio__title accent-gradient">Portfolio</h2>
-        <p className="portfolio__subtitle">
+      <header className="portfolioHeader">
+        <h2 className="portfolioTitle accent-gradient">Portfolio</h2>
+        <p className="portfolioSubtitle">
           A few representative projects. Each card lists stack, role, and
           measurable outcomes.
         </p>
       </header>
 
-      <ul className="portfolio__grid" role="list">
-        {items.map((proj, i) => {
-          const headingId = `${slugify(proj.title)}-${i}`;
-          const summaryId = `${headingId}-summary`;
-
-          return (
-            <li
-              key={proj.title}
-              className={`portfolio__item${proj.wide ? " is-wide" : ""}`}
-            >
-              <article
-                className="project-card"
-                aria-labelledby={headingId}
-                aria-describedby={summaryId}
-                itemScope
-                itemType="https://schema.org/CreativeWork"
-              >
-                {/* Top accent line */}
-                <span className="project-card__accent" aria-hidden="true" />
-
-                {/* HEAD */}
-                <header className="project-card__head">
-                  <BrandLogo logo={proj.logo} title={proj.title} />
-
-                  <div className="project-card__head-text">
-                    <h3
-                      id={headingId}
-                      className="project-card__title"
-                      itemProp="name"
-                    >
-                      <a
-                        href={proj.siteUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`Open live site: ${proj.title}`}
-                        itemProp="url"
-                      >
-                        {proj.title}
-                      </a>
-                    </h3>
-
-                    <p className="project-card__meta">
-                      <span className="project-card__role">{proj.role}</span>
-                      <span aria-hidden="true" className="project-card__dot">
-                        •
-                      </span>
-                      <time itemProp="datePublished" dateTime={proj.period}>
-                        {proj.period}
-                      </time>
-                    </p>
-
-                    <p
-                      id={summaryId}
-                      className="project-card__summary"
-                      itemProp="description"
-                    >
-                      {proj.summary}
-                    </p>
-                  </div>
-                </header>
-
-                {/* CONTENT */}
-                <div className="project-card__content">
-                  {proj.highlights.length > 0 && (
-                    <ul className="project-card__highlights" role="list">
-                      {proj.highlights.map((h) => (
-                        <li key={h}>{h}</li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-
-                {/* FOOTER */}
-                <footer className="project-card__footer">
-                  <div className="project-card__tags" aria-label="Tech stack">
-                    {proj.tags.map((t) => (
-                      <Tag key={t}>{t}</Tag>
-                    ))}
-                  </div>
-
-                  <nav
-                    className="project-card__actions"
-                    aria-label="Project links"
-                  >
-                    <a
-                      href={proj.siteUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn btn--primary"
-                      aria-label={`Open live site: ${proj.title}`}
-                    >
-                      Live
-                    </a>
-
-                    {proj.repoUrl && (
-                      <a
-                        href={proj.repoUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn btn--ghost"
-                        aria-label={`View code on GitHub: ${proj.title}`}
-                      >
-                        Code
-                      </a>
-                    )}
-                  </nav>
-                </footer>
-              </article>
-            </li>
-          );
-        })}
+      <ul className="portfolioGrid" role="list">
+        {PROJECTS_SORTED.map((proj, i) => (
+          <ProjectCard proj={proj} index={i} key={proj.title} />
+        ))}
       </ul>
     </section>
   );
-}
-
-function slugify(s: string) {
-  return s
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)+/g, "");
 }
