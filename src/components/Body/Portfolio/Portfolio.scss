@@ -1,6 +1,5 @@
 @use "@/styles/ui";
 
-/* ===== Design tokens (from :root) ===== */
 $accent: var(--accent);
 $textMeta: var(--text-meta);
 $textSummary: var(--text-summary);
@@ -10,8 +9,6 @@ $surface: var(--surface);
 $shadow1: var(--shadow-1);
 
 $heading-size: clamp(1.05rem, 1.6vw, 1.25rem);
-
-/* ===== Section ===== */
 
 .portfolio {
   max-width: 980px;
@@ -60,21 +57,17 @@ $heading-size: clamp(1.05rem, 1.6vw, 1.25rem);
   }
 }
 
-/* ===== Card ===== */
-
 .projectCard {
   --card-py: 1.15rem;
   --card-px: 1.10rem;
   --logo-size: 44px;
   --card-radius: 18px;
-
   --summary-size: 1rem;
   --summary-lh: 1.55;
-
   --highlight-size: clamp(.9rem, calc(var(--summary-size) - .05rem), var(--summary-size));
   --highlight-lh: var(--summary-lh);
 
-  position: relative; /* containing block for absolute children */
+  position: relative;
   background: $surface;
   border: 1px solid $border;
   border-radius: var(--card-radius);
@@ -115,7 +108,6 @@ $heading-size: clamp(1.05rem, 1.6vw, 1.25rem);
   pointer-events: none;
 }
 
-/* Title/meta stays left; logo mirrors at card’s top-right */
 .projectCardHead {
   position: static;
   display: block;
@@ -198,7 +190,6 @@ $heading-size: clamp(1.05rem, 1.6vw, 1.25rem);
   }
 }
 
-/* Meta row: “Web Developer • 2025” */
 .projectCardMeta {
   margin: 0;
   display: inline-flex;
@@ -211,10 +202,8 @@ $heading-size: clamp(1.05rem, 1.6vw, 1.25rem);
   letter-spacing: .2px;
 }
 
-.projectCardRole {}
 .projectCardDot { opacity: .45; }
 
-/* Summary sentence */
 .projectCardSummary {
   margin: .15rem 0 0;
   color: $textMeta;
@@ -223,26 +212,36 @@ $heading-size: clamp(1.05rem, 1.6vw, 1.25rem);
   font-weight: 600;
 }
 
-/* Bullets */
 .projectCardContent { min-height: 0; }
 
 .projectCardHighlights {
-  list-style: disc;
-  list-style-position: outside;
-  padding-left: .9rem;
+  list-style: none;
   margin: .2rem 0 0;
-  display: block;
+  padding: 0;
   color: $textHighlights;
   font-weight: 400;
 
   &, li { font-size: var(--highlight-size); }
-  li { margin: 0; line-height: var(--highlight-lh); }
-
-  li::marker {
-    color: $textHighlights;
-    font-size: .72em;
-  }
 }
+
+.projectCardHighlights li {
+  display: grid;
+  grid-template-columns: 1rem 1fr;
+  gap: .5rem;
+  margin: 0;
+  line-height: var(--highlight-lh);
+}
+
+.projectCardHighlights li::before {
+  content: "";
+  width: .55rem;
+  height: 2px;
+  border-radius: 2px;
+  background: color-mix(in srgb, $accent 65%, $textHighlights);
+  margin-top: .75em;
+}
+
+.projectCardHighlights li + li { margin-top: .25rem; }
 
 .projectCardFooter {
   display: grid;
@@ -280,7 +279,6 @@ $heading-size: clamp(1.05rem, 1.6vw, 1.25rem);
   @media (min-width: 560px) { justify-self: end; }
 }
 
-/* Link overrides local to the card title only */
 .projectCardTitle a,
 .projectCardTitle a:hover,
 .projectCardTitle a:focus-visible {
@@ -292,7 +290,6 @@ $heading-size: clamp(1.05rem, 1.6vw, 1.25rem);
 
 .projectCardTitle a::after { content: none !important; }
 
-/* Print */
 @media print {
   .projectCard { break-inside: avoid; page-break-inside: avoid; }
   .projectCardActions a[href^="http"]::after { content: " (" attr(href) ")"; }
