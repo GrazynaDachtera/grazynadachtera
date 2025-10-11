@@ -220,7 +220,7 @@ $heading-size: clamp(1.05rem, 1.6vw, 1.25rem);
   list-style: none;
   margin: .2rem 0 0;
   padding: 0;
-  color: var(--text-highlights);
+  color: var(--text);
   font-weight: 400;
   &, li { font-size: var(--highlight-size); }
 }
