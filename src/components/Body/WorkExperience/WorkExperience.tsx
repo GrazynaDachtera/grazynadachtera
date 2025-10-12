@@ -83,7 +83,7 @@ const EXPERIENCES = [
 ] as const satisfies readonly Experience[];
 
 function Tag({ children }: { children: React.ReactNode }) {
-  return <span className="tag">{children}</span>;
+  return <span className="techTag">{children}</span>;
 }
 
 export default function WorkExperience() {
@@ -92,17 +92,17 @@ export default function WorkExperience() {
   return (
     <section
       id="work-experience"
-      className="WorkExperience"
+      className="workExperienceSection"
       aria-label="Work experience"
     >
-      <header className="WorkExperience__header">
-        <h2 className="WorkExperience__title">Work Experience</h2>
-        <p className="WorkExperience__subtitle">
+      <header className="workExperienceHeader">
+        <h2 className="workExperienceHeading">Work Experience</h2>
+        <p className="workExperienceSubheading">
           Roles, teams, stack, and measurable outcomes.
         </p>
       </header>
 
-      <ul className="WorkExperience__grid" role="list">
+      <ul className="experienceListGrid" role="list">
         {items.map((x, i) => {
           const headingId = `${slugify(`${x.company}-${x.role}`)}-${i}`;
           const title = x.company;
@@ -111,18 +111,18 @@ export default function WorkExperience() {
           return (
             <li
               key={`${x.company}-${x.role}-${x.period}`}
-              className={`WorkExperience__item${x.wide ? " is-wide" : ""}`}
+              className={`experienceListItem${x.wide ? " isWide" : ""}`}
             >
               <article
-                className="project-card"
+                className="experienceCard"
                 aria-labelledby={headingId}
                 itemScope
                 itemType="https://schema.org/Organization"
               >
-                <div className="project-card__head">
+                <div className="experienceCardHeader">
                   <h3
                     id={headingId}
-                    className="project-card__title"
+                    className="experienceCardTitle"
                     itemProp="name"
                   >
                     {titleLink ? (
@@ -139,14 +139,14 @@ export default function WorkExperience() {
                       <span>{title}</span>
                     )}
                   </h3>
-                  <p className="project-card__meta">
+                  <p className="experienceCardMeta">
                     <span>{x.role}</span>
                     <span aria-hidden="true"> · </span>
                     <time>{x.period}</time>
                   </p>
                 </div>
 
-                <p className="project-card__summary" itemProp="description">
+                <p className="experienceCardSummary" itemProp="description">
                   {[
                     x.team ? `${x.team}` : "",
                     x.company ? ` ${x.company}` : "",
@@ -156,26 +156,26 @@ export default function WorkExperience() {
                 </p>
 
                 {x.highlights.length > 0 && (
-                  <ul className="project-card__highlights">
+                  <ul className="experienceCardHighlights">
                     {x.highlights.map((h) => (
                       <li key={h}>{h}</li>
                     ))}
                   </ul>
                 )}
 
-                <div className="project-card__tags">
+                <div className="experienceCardTags">
                   {x.tags.map((t) => (
                     <Tag key={t}>{t}</Tag>
                   ))}
                 </div>
 
                 {x.companyUrl && (
-                  <p className="project-card__links">
+                  <p className="experienceCardLinks">
                     <a
                       href={x.companyUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="project-link"
+                      className="externalLink"
                       aria-label={`Open company site: ${x.company}`}
                     >
                       Company
