@@ -1,7 +1,15 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
+import { Poppins } from "next/font/google";
 import "./WorkExperience.scss";
+
+const poppins = Poppins({
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
+});
 
 export type Experience = {
   company: string;
@@ -15,6 +23,7 @@ export type Experience = {
   highlights: readonly string[];
   order: number;
   wide?: boolean;
+  logo?: { src: string; alt?: string; bg?: string };
 };
 
 const e = (x: Experience) => x;
@@ -36,6 +45,7 @@ const EXPERIENCES = [
     ],
     order: 1,
     wide: true,
+    logo: { src: "/logo4.png", alt: "Pro Advisor Group logo" },
   }),
   e({
     company: "summ-it inc",
@@ -62,6 +72,7 @@ const EXPERIENCES = [
     ],
     order: 2,
     wide: true,
+    logo: { src: "/logo5.png", alt: "summ-it logo" },
   }),
   e({
     company: "Allegro Ltd.",
@@ -79,11 +90,76 @@ const EXPERIENCES = [
     ],
     order: 3,
     wide: true,
+    logo: { src: "/logo6.jpg", alt: "allegro logo" },
   }),
 ] as const satisfies readonly Experience[];
 
 function Tag({ children }: { children: React.ReactNode }) {
-  return <span className="techTag">{children}</span>;
+  return <span className="pill">{children}</span>;
+}
+
+function ExternalLink({
+  href,
+  children,
+  className,
+  ariaLabel,
+}: {
+  href: string;
+  children: React.ReactNode;
+  className?: string;
+  ariaLabel?: string;
+}) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={className}
+      aria-label={ariaLabel}
+    >
+      {children}
+    </a>
+  );
+}
+
+function CompanyLogo({
+  logo,
+  title,
+}: {
+  logo?: Experience["logo"];
+  title: string;
+}) {
+  if (!logo?.src) {
+    const initials = title
+      .split(/\s+/)
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((w) => w[0]?.toUpperCase())
+      .join("");
+    return (
+      <div
+        className="projectCardBrand projectCardBrandFallback"
+        aria-hidden="true"
+      >
+        <span>{initials || "•"}</span>
+      </div>
+    );
+  }
+  return (
+    <div
+      className="projectCardBrand"
+      style={
+        logo.bg ? ({ background: logo.bg } as React.CSSProperties) : undefined
+      }
+    >
+      <Image
+        src={logo.src}
+        alt={logo.alt || `${title} logo`}
+        fill
+        sizes="44px"
+      />
+    </div>
+  );
 }
 
 export default function WorkExperience() {
@@ -92,96 +168,110 @@ export default function WorkExperience() {
   return (
     <section
       id="work-experience"
-      className="workExperienceSection"
+      className={`workExperienceSection ${poppins.className}`}
       aria-label="Work experience"
     >
       <header className="workExperienceHeader">
-        <h2 className="workExperienceHeading">Work Experience</h2>
-        <p className="workExperienceSubheading">
+        <h2 className="workExperienceTitle accent-gradient">Work Experience</h2>
+        <p className="workExperienceSubtitle">
           Roles, teams, stack, and measurable outcomes.
         </p>
       </header>
 
-      <ul className="experienceListGrid" role="list">
+      <ul className="portfolioGrid" role="list">
         {items.map((x, i) => {
           const headingId = `${slugify(`${x.company}-${x.role}`)}-${i}`;
-          const title = x.company;
-          const titleLink = x.companyUrl || undefined;
-
+          const summaryId = `${headingId}-summary`;
           return (
             <li
               key={`${x.company}-${x.role}-${x.period}`}
-              className={`experienceListItem${x.wide ? " isWide" : ""}`}
+              className={`portfolioItem${x.wide ? " isWide" : ""}`}
             >
               <article
-                className="experienceCard"
+                className="projectCard"
                 aria-labelledby={headingId}
+                aria-describedby={summaryId}
                 itemScope
                 itemType="https://schema.org/Organization"
               >
-                <div className="experienceCardHeader">
-                  <h3
-                    id={headingId}
-                    className="experienceCardTitle"
-                    itemProp="name"
-                  >
-                    {titleLink ? (
-                      <a
-                        href={titleLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`Open: ${title}`}
-                        itemProp="url"
-                      >
-                        {title}
-                      </a>
-                    ) : (
-                      <span>{title}</span>
-                    )}
-                  </h3>
-                  <p className="experienceCardMeta">
-                    <span>{x.role}</span>
-                    <span aria-hidden="true"> · </span>
-                    <time>{x.period}</time>
-                  </p>
-                </div>
+                <span className="projectCardAccent" aria-hidden="true" />
 
-                <p className="experienceCardSummary" itemProp="description">
-                  {[
-                    x.team ? `${x.team}` : "",
-                    x.company ? ` ${x.company}` : "",
-                    x.location ? ` - ${x.location}` : "",
-                  ].join("")}
-                  {x.summary ? ` - ${x.summary}` : ""}
-                </p>
-
-                {x.highlights.length > 0 && (
-                  <ul className="experienceCardHighlights">
-                    {x.highlights.map((h) => (
-                      <li key={h}>{h}</li>
-                    ))}
-                  </ul>
-                )}
-
-                <div className="experienceCardTags">
-                  {x.tags.map((t) => (
-                    <Tag key={t}>{t}</Tag>
-                  ))}
-                </div>
-
-                {x.companyUrl && (
-                  <p className="experienceCardLinks">
-                    <a
-                      href={x.companyUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="externalLink"
-                      aria-label={`Open company site: ${x.company}`}
+                <header className="projectCardHead">
+                  <CompanyLogo logo={x.logo} title={x.company} />
+                  <div className="projectCardHeadText">
+                    <h3
+                      id={headingId}
+                      className="projectCardTitle"
+                      itemProp="name"
                     >
-                      Company
-                    </a>
-                  </p>
-                )}
+                      {x.companyUrl ? (
+                        <ExternalLink
+                          href={x.companyUrl}
+                          ariaLabel={`Open company site: ${x.company}`}
+                        >
+                          {x.company}
+                        </ExternalLink>
+                      ) : (
+                        x.company
+                      )}
+                    </h3>
+
+                    <p className="projectCardMeta">
+                      <span className="projectCardRole">{x.role}</span>
+                      <span aria-hidden="true" className="projectCardDot">
+                        •
+                      </span>
+                      <time itemProp="datePublished" dateTime={x.period}>
+                        {x.period}
+                      </time>
+                    </p>
+
+                    <p
+                      id={summaryId}
+                      className="projectCardSummary"
+                      itemProp="description"
+                    >
+                      {[
+                        x.team ? `${x.team}` : "",
+                        x.location ? ` — ${x.location}` : "",
+                      ].join("")}{" "}
+                      {x.summary}
+                    </p>
+                  </div>
+                </header>
+
+                <div className="projectCardContent">
+                  {x.highlights.length > 0 && (
+                    <ul className="projectCardHighlights" role="list">
+                      {x.highlights.map((h) => (
+                        <li key={h}>{h}</li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+
+                <footer className="projectCardFooter">
+                  <div className="projectCardTags" aria-label="Tech stack">
+                    {x.tags.map((t) => (
+                      <Tag key={t}>{t}</Tag>
+                    ))}
+                  </div>
+
+                  {x.companyUrl && (
+                    <nav
+                      className="projectCardActions"
+                      aria-label="Company link"
+                    >
+                      <ExternalLink
+                        href={x.companyUrl}
+                        className="btn btn--ghost"
+                        ariaLabel={`Open company site: ${x.company}`}
+                      >
+                        Company
+                      </ExternalLink>
+                    </nav>
+                  )}
+                </footer>
               </article>
             </li>
           );

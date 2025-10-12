@@ -23,22 +23,20 @@ export default function ResumeHomePage() {
   return (
     <>
       <div ref={scrollRef} style={{ overflow: "hidden" }}>
-        <section className={`ResumeGrazynaDachtera ${poppins.className}`}>
+        <section className={`resumePage ${poppins.className}`}>
           <Header />
           <Portfolio />
           <WorkExperience />
 
-          {/* Skills section with the same header layout as Work Experience */}
-          <section id="skills" className="Skills" aria-label="Skills">
-            <header className="Skills__header">
-              <h2 className="Skills__title">Skills</h2>
-              <p className="Skills__subtitle">
+          <section id="skills" className="skillsSection" aria-label="Skills">
+            <header className="skillsHeader">
+              <h2 className="skillsTitle accentGradient">Skills</h2>
+              <p className="skillsSubtitle">
                 Areas of expertise, core competencies, education, and languages.
               </p>
             </header>
 
-            {/* Keep existing grid class but scope it so it uses the section container */}
-            <div className="Skills__grid skillsGrid">
+            <div className="skillsGrid">
               <AreasOfExpertise />
               <CoreCompetencies />
               <Education />
