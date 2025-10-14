@@ -175,6 +175,7 @@ export default function Header() {
       aria-label="Introduction"
       itemScope
       itemType="https://schema.org/Person"
+      data-container
     >
       <div className={`${classNames.photo} glow`}>
         <Image
@@ -183,7 +184,7 @@ export default function Header() {
           width={156}
           height={156}
           priority
-          sizes="(max-width:520px) 144px, 156px"
+          sizes="(max-width: 420px) 112px, (max-width: 640px) 132px, (max-width: 920px) 144px, 156px"
           decoding="async"
         />
       </div>
