@@ -5,29 +5,26 @@ import "./Languages.scss";
 
 export default function Languages() {
   return (
-    <section className="languages-card" aria-labelledby="languages-title">
-      <header className="languages-card__header">
-        <div aria-hidden className="languages-card__icon">
+    <section className="languagesCard" aria-labelledby="languages-title">
+      <header className="languagesCardHeader">
+        <div aria-hidden className="languagesCardIcon">
           🗣️
         </div>
-        <h3 id="languages-title" className="languages-card__title">
+        <h3 id="languages-title" className="languagesCardTitle">
           Languages
         </h3>
       </header>
 
-      <ul className="languages-card__list" role="list">
+      <ul className="languagesCardList" role="list">
         <li>
-          <span className="languages-card__name">English</span>
-          <span className="languages-card__level" aria-label="C1 proficiency">
+          <span className="languagesCardName">English</span>
+          <span className="languagesCardLevel" aria-label="C1 proficiency">
             C1
           </span>
         </li>
         <li>
-          <span className="languages-card__name">Polish</span>
-          <span
-            className="languages-card__level"
-            aria-label="Native proficiency"
-          >
+          <span className="languagesCardName">Polish</span>
+          <span className="languagesCardLevel" aria-label="Native proficiency">
             native
           </span>
         </li>
