@@ -4,14 +4,13 @@ import React from "react";
 import "./AreasOfExpertise.scss";
 
 const SKILLS = [
-  "JavaScript",
-  "TypeScript",
+  "JavaScript, Typescript",
+  "React, Next.js",
   "HTML",
-  "CSS / SCSS",
-  "React",
-  "Next.js",
+  "CSS, SCSS",
   "Git",
   "SQL (basics)",
+  "Performance, Accessibility (WCAG)",
 ] as const;
 
 export default function AreasOfExpertise() {
