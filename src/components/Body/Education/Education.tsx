@@ -3,53 +3,34 @@
 import React from "react";
 import "./Education.scss";
 
-export default function Education() {
+export default function CoreCompetencies() {
   return (
-    <section className="educationCard" aria-labelledby="education-title">
-      <header className="educationCardHeader">
-        <div aria-hidden className="educationCardIcon">
-          🎓
-        </div>
-        <h3 id="education-title" className="educationCardTitle">
+    <section className="competenciesCard" aria-labelledby="competencies-title">
+      <header className="competenciesCardHeader">
+        <span aria-hidden="true" className="competenciesCardIcon">
+          💡
+        </span>
+        <h3 id="competencies-title" className="competenciesCardTitle">
           Education
         </h3>
       </header>
 
-      <ul className="educationCardTimeline" role="list">
-        <li className="educationCardItem">
-          <div className="educationCardContent">
-            <strong className="educationCardDegree">
-              Postgraduate studies - Frontend Development
-            </strong>
-            <span className="educationCardSchool">
-              <span className="educationCardInstitution">
-                Poznan University of Technology
-              </span>
-              , <span className="educationCardCity">Poznan</span>,{" "}
-              <span className="educationCardCountry">Poland</span>
-            </span>
-          </div>
-          <time className="educationCardDates" aria-label="2023 to 2024">
-            2023 – 2024
-          </time>
+      <ul className="competenciesCardList" role="list">
+        <li tabIndex={0}>
+          <span className="competenciesCheck" aria-hidden="true" />
+          <span className="competenciesText">
+            <strong>Postgraduate studies - Frontend Development</strong>{" "}
+            <span className="competenciesDate">2023 – 2024</span> Poznan
+            University of Technology, Poznan, Poland
+          </span>
         </li>
-
-        <li className="educationCardItem">
-          <div className="educationCardContent">
-            <strong className="educationCardDegree">
-              Master’s degree - Business Management
-            </strong>
-            <span className="educationCardSchool">
-              <span className="educationCardInstitution">
-                WSB Merito University
-              </span>
-              , <span className="educationCardCity">Poznan</span>,{" "}
-              <span className="educationCardCountry">Poland</span>
-            </span>
-          </div>
-          <time className="educationCardDates" aria-label="2020 to 2022">
-            2020 – 2022
-          </time>
+        <li tabIndex={0}>
+          <span className="competenciesCheck" aria-hidden="true" />
+          <span className="competenciesText">
+            <strong>Master’s degree - Business Management</strong>{" "}
+            <span className="competenciesDate">2020 – 2022</span> WSB Merito
+            University, Poznan, Poland
+          </span>
         </li>
       </ul>
     </section>
