@@ -1,4 +1,4 @@
-/* Languages.scss — full updated with fixed grid placement */
+/* Languages.scss */
 
 $txt: var(--foreground, #102a23);
 $surface: var(--surface, #fff);
@@ -8,16 +8,17 @@ $accent: var(--accent, #114538);
 $textSummary: var(--text-summary);
 $textMeta: var(--text-meta);
 
-.languagesCard {
+.expertiseCard {
   --card-px: clamp(1rem, 2.2vw, 1.5rem);
   --card-py: clamp(1rem, 2.2vw, 1.6rem);
+  --edgeHang: clamp(-6px, calc(var(--card-px) * -0.14), -6px);
 
   background: $surface;
   border: 1px solid $border;
   border-radius: 16px;
   box-shadow: $shadow;
   padding: var(--card-py) var(--card-px);
-  color: $txt;
+  color: $textSummary;
   position: relative;
   isolation: isolate;
 
@@ -28,25 +29,25 @@ $textMeta: var(--text-meta);
   &:focus-within { outline: 2px solid $accent; outline-offset: 2px; }
 }
 
-.languagesCardHeader {
+.expertiseHeader {
   display: flex;
   align-items: center;
   gap: .65rem;
   margin: 0;
-  margin-left: clamp(-6px, calc(var(--card-px) * -0.14), -6px);
-  margin-top: clamp(-6px, calc(var(--card-px) * -0.14), -6px);
+  margin-left: var(--edgeHang);
+  margin-top: var(--edgeHang);
 }
 
-.languagesCardIcon {
+.expertiseIcon {
   width: 28px; height: 28px;
   display: grid; place-items: center;
   border-radius: 999px;
   background: color-mix(in oklab, $accent 12%, $surface);
   border: 1px solid $border;
-  font-size: 14px;
+  color: $accent; /* inline SVG inherits this */
 }
 
-.languagesCardTitle {
+.expertiseTitle {
   margin: 0;
   font-size: clamp(1.06rem, 1.6vw, 1.18rem);
   font-weight: 800;
@@ -54,110 +55,120 @@ $textMeta: var(--text-meta);
   color: $accent;
 }
 
-.languagesCardList {
+/* === Responsive chip list; guarantees full words (e.g., "Polish") remain visible === */
+.expertiseList {
+  --row-gap: clamp(.55rem, 1.2vw, .85rem);
+  --col-gap: clamp(1.25rem, 4vw, 2rem);
+  --outer-right: clamp(1rem, 4vw, 2rem);
+  --fs: clamp(.92rem, .95vw, 1.02rem);
+  --lh: 1.45;
+
   list-style: none;
-  margin: .65rem 0 0;
+  margin: calc(var(--row-gap) + .2rem) 0 0;
   padding: 0;
+
   display: grid;
-  gap: .8rem;
-}
+  /* Each chip gets a sensible minimum; auto-wraps from 2 cols to 1 as needed */
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--row-gap) var(--col-gap);
 
-/* Row layout: Name | Meter (stretches) | Level (right edge) */
-.languageItem {
-  display: grid;
-  grid-template-columns: 1fr minmax(110px, 38%) auto;
-  gap: .6rem .75rem;
-  align-items: center;
-  min-width: 0;
-  line-height: 1.45;
-  color: $textSummary;
-}
+  /* add right-only padding to create more breathing room at the card edge */
+  padding-right: var(--outer-right);
 
-/* Ensure all three cells sit on the same row */
-.languagesCardName,
-.languagesCardMeter,
-.languagesCardLevel {
-  grid-row: 1;
-}
-
-.languagesCardName {
-  color: $txt;
-  font-weight: 700;
-  overflow-wrap: anywhere;
-  white-space: normal;
-}
-
-/* Level pill on the far right */
-.languagesCardLevel {
-  grid-column: 3;           /* right column */
-  justify-self: end;        /* stick to the edge */
-  border: 1px solid $border;
-  background: color-mix(in oklab, $accent 8%, $surface);
-  padding: .08rem .55rem;
-  border-radius: 999px;
-  font-size: .85rem;
-  color: $textMeta;
-  white-space: nowrap;
-}
-
-.languagesCardAbbr {
-  text-decoration: none;
-  border-bottom: 1px dotted $border;
-}
-
-/* Meter sits in the middle column */
-.languagesCardMeter {
-  grid-column: 2;           /* middle column */
-  width: 100%;
-  height: 8px;
-  border-radius: 999px;
-  background: color-mix(in oklab, $accent 6%, $surface);
-  border: 1px solid $border;
-
-  /* WebKit & fallback styling */
-  &::-webkit-meter-bar {
-    background: transparent;
-    border: none;
+  @media (min-width: 1200px) {
+    --col-gap: clamp(1.75rem, 4.5vw, 2.5rem);
+    --outer-right: clamp(1.25rem, 5vw, 2.75rem);
   }
-  &::-webkit-meter-optimum-value {
-    background: color-mix(in oklab, $accent 55%, $surface);
+
+  .skillItem {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    width: 100%;
+    min-width: 0;
+
+    font-size: var(--fs);
+    line-height: var(--lh);
+    font-weight: 700;
+    letter-spacing: .1px;
+    color: $textMeta;
+
+    padding: .34rem .6rem;
     border-radius: 999px;
+    border: 1px solid color-mix(in oklab, $accent 35%, $border);
+    background: color-mix(in oklab, $accent 6%, $surface);
+    box-shadow: 0 1px 0 rgba(2,6,23,.04);
+
+    &:focus-visible {
+      outline: 3px solid color-mix(in oklab, $accent 30%, transparent);
+      outline-offset: 2px;
+    }
+    &:hover {
+      background: color-mix(in oklab, $accent 10%, $surface);
+      color: color-mix(in oklab, $txt 85%, $accent 15%);
+    }
   }
-  &::-webkit-meter-suboptimum-value {
-    background: color-mix(in oklab, $accent 40%, $surface);
+
+  .expertiseCheck {
+    width: 18px; height: 18px; flex: 0 0 18px;
     border-radius: 999px;
+    background: color-mix(in oklab, $accent 10%, $surface);
+    box-shadow:
+      0 0 0 2px color-mix(in oklab, $accent 60%, $border) inset,
+      0 1px 0 rgba(2,6,23,.04);
+    position: relative;
+
+    &::after {
+      content: "✓";
+      position: absolute; inset: 0; display: grid; place-items: center;
+      font-size: 11px; font-weight: 900;
+      color: color-mix(in oklab, $accent 80%, $txt);
+      line-height: 1;
+    }
   }
-  &::-webkit-meter-even-less-good-value {
-    background: color-mix(in oklab, $accent 25%, $surface);
+
+  .expertiseText {
+    /* keep full word visible; don't allow shrinking/ellipsis */
+    white-space: nowrap;
+    overflow: visible;
+    text-overflow: clip;
+    flex: 0 0 auto;
+    min-width: max-content;
+  }
+
+  .levelBadge {
+    margin-left: auto; /* push badge to the right edge */
+    flex: 0 0 auto;
+    font-size: clamp(.72rem, .8vw, .78rem);
+    font-weight: 800;
+    letter-spacing: .3px;
+    padding: .18rem .5rem;
     border-radius: 999px;
+    background: color-mix(in oklab, $accent 16%, $surface);
+    border: 1px solid color-mix(in oklab, $accent 45%, $border);
+    color: color-mix(in oklab, $accent 70%, $txt);
+    text-transform: uppercase;
+    line-height: 1;
   }
 }
 
-/* Mobile: keep name + level on first row; meter drops below full width */
-@media (max-width: 520px) {
-  .languageItem {
-    grid-template-columns: 1fr auto;
-  }
-  .languagesCardLevel {
-    grid-column: 2;
-    grid-row: 1;
-  }
-  .languagesCardMeter  {
-    grid-column: 1 / -1;
-    grid-row: 2;
-    margin-top: .25rem;
-  }
+/* touch targets slightly larger */
+@media (pointer: coarse) {
+  .expertiseList .skillItem { padding: .42rem .68rem; }
 }
 
+/* accessibility / print */
 @media (prefers-reduced-motion: reduce) {
-  .languagesCard { transition: none; }
-  .languagesCard:hover { transform: none; }
+  .expertiseCard { transition: none; }
+  .expertiseCard:hover { transform: none; }
+  .expertiseList .skillItem:hover {
+    background: color-mix(in oklab, $accent 6%, $surface);
+    color: inherit;
+  }
 }
 
 @media print {
-  .languagesCard {
-    break-inside: avoid;
-    page-break-inside: avoid;
-    box-shadow: none;
-  }
+  .expertiseCard { break-inside: avoid; box-shadow: none; }
+  .expertiseList .skillItem { background: transparent; }
+  .expertiseList .levelBadge { border: 1px solid #000; }
 }

@@ -44,8 +44,8 @@ $textMeta: var(--text-meta);
   background: color-mix(in oklab, $accent 12%, $surface);
   border: 1px solid $border;
   font-size: 14px;
+  color: $accent; /* ← makes the SVG icon green */
 }
-
 .competenciesCardTitle {
   margin: 0;
   font-size: clamp(1.06rem, 1.6vw, 1.18rem);
