@@ -31,29 +31,30 @@ export default function CoreCompetencies() {
         <li tabIndex={0}>
           <span className="competenciesCheck" aria-hidden="true" />
           <span className="competenciesText">
-            <strong>React and TypeScript Development:</strong> building
-            responsive, accessible, and scalable web applications
+            <strong>React and TypeScript Development:</strong> delivers
+            responsive, accessible, and scalable user interfaces.
           </span>
         </li>
         <li tabIndex={0}>
           <span className="competenciesCheck" aria-hidden="true" />
           <span className="competenciesText">
-            <strong>Performance and Accessibility:</strong> optimizing user
-            experience with fast, inclusive, and SEO-friendly solutions
+            <strong>Performance and Accessibility:</strong> drives measurable
+            gains in site speed, Lighthouse scores, SEO, and WCAG compliance.
           </span>
         </li>
         <li tabIndex={0}>
           <span className="competenciesCheck" aria-hidden="true" />
           <span className="competenciesText">
-            <strong>Collaboration and Communication:</strong> clear PRs,
-            constructive feedback, and effective teamwork across disciplines
+            <strong>Collaboration and Communication:</strong> clear
+            communication, clean PRs, and smooth collaboration with designers
+            and developers.
           </span>
         </li>
         <li tabIndex={0}>
           <span className="competenciesCheck" aria-hidden="true" />
           <span className="competenciesText">
             <strong>Adaptability and Growth Mindset:</strong> eager learner,
-            open to feedback, and quick to master new tools
+            receptive to feedback, and quick to master new tools and frameworks.
           </span>
         </li>
       </ul>

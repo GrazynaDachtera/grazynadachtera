@@ -19,6 +19,8 @@ $textMeta: var(--text-meta);
   position: relative;
   isolation: isolate;
   will-change: transform;
+  hyphens: none;
+  -webkit-hyphens: none;
 
   @media (prefers-reduced-motion: no-preference) {
     transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
@@ -44,7 +46,7 @@ $textMeta: var(--text-meta);
   background: color-mix(in oklab, $accent 12%, $surface);
   border: 1px solid $border;
   font-size: 14px;
-  color: $accent; /* ← makes the SVG icon green */
+  color: $accent;
 }
 .competenciesCardTitle {
   margin: 0;
@@ -112,8 +114,11 @@ $textMeta: var(--text-meta);
     flex: 1 1 auto;
     min-width: 0;
     white-space: normal;
-    overflow-wrap: anywhere;
-    hyphens: auto;
+    overflow-wrap: break-word;
+    word-break: normal;
+    hyphens: none;
+    -webkit-hyphens: none;
+    -ms-hyphens: none;
 
     strong { color: $txt; font-weight: 700; }
   }
