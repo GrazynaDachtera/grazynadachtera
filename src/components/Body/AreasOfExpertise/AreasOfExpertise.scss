@@ -1,24 +1,21 @@
-/* AreasOfExpertise.scss */
-
-$txt: var(--foreground, #102a23);
+$txt: #3f4041;
 $surface: var(--surface, #fff);
 $border: var(--border, #e2e8f0);
 $shadow: var(--shadow-1, 0 2px 8px rgba(2,6,23,.06), 0 10px 24px rgba(2,6,23,.05));
 $accent: var(--accent, #114538);
-$textSummary: var(--text-summary);
-$textMeta: var(--text-meta);
+$textSummary: $txt;
+$textMeta: $txt;
 
 .expertiseCard {
   --card-px: clamp(1rem, 2.2vw, 1.5rem);
   --card-py: clamp(1rem, 2.2vw, 1.6rem);
   --edgeHang: clamp(-6px, calc(var(--card-px) * -0.14), -6px);
-
   background: $surface;
   border: 1px solid $border;
   border-radius: 16px;
   box-shadow: $shadow;
   padding: var(--card-py) var(--card-px);
-  color: $textSummary;
+  color: $txt;
   position: relative;
   isolation: isolate;
 
@@ -44,7 +41,7 @@ $textMeta: var(--text-meta);
   border-radius: 999px;
   background: color-mix(in oklab, $accent 12%, $surface);
   border: 1px solid $border;
-  color: $accent; /* inline SVG inherits this green */
+  color: $accent;
 }
 
 .expertiseTitle {
@@ -55,11 +52,10 @@ $textMeta: var(--text-meta);
   color: $accent;
 }
 
-/* === Two-column chip list with wider center gutter + extra right gutter === */
 .expertiseList {
   --row-gap: clamp(.55rem, 1.2vw, .85rem);
-  --col-gap: clamp(1.25rem, 4vw, 2rem);   /* space between the columns */
-  --outer-right: clamp(1rem, 4vw, 2rem);  /* extra space at the RIGHT edge */
+  --col-gap: clamp(1.25rem, 4vw, 2rem);
+  --outer-right: clamp(1rem, 4vw, 2rem);
   --fs: clamp(.92rem, .95vw, 1.02rem);
   --lh: 1.45;
 
@@ -68,36 +64,31 @@ $textMeta: var(--text-meta);
   padding: 0;
 
   display: grid;
-  grid-template-columns: 1fr; /* 1 column on small screens */
+  grid-template-columns: 1fr;
   gap: var(--row-gap) var(--col-gap);
-
-  /* add right-only padding to create more breathing room at the card edge */
   padding-right: var(--outer-right);
 
   @media (min-width: 560px) {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); /* two equal cols */
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: var(--row-gap) var(--col-gap);
   }
 
   @media (min-width: 1200px) {
-    --col-gap: clamp(1.75rem, 4.5vw, 2.5rem); /* open up the middle further */
+    --col-gap: clamp(1.75rem, 4.5vw, 2.5rem);
     --outer-right: clamp(1.25rem, 5vw, 2.75rem);
   }
 
   .skillItem {
     display: flex;
     align-items: center;
-    gap: .46rem;         /* slightly tighter internal spacing */
+    gap: .46rem;
     width: 100%;
     min-width: 0;
-
     font-size: var(--fs);
     line-height: var(--lh);
     font-weight: 700;
     letter-spacing: .1px;
-    color: $textMeta;
-
-    /* cut horizontal padding to gain width for the new right gutter */
+    color: $txt;
     padding: .34rem .5rem;
     border-radius: 999px;
     border: 1px solid color-mix(in oklab, $accent 35%, $border);
@@ -110,7 +101,7 @@ $textMeta: var(--text-meta);
     }
     &:hover {
       background: color-mix(in oklab, $accent 10%, $surface);
-      color: color-mix(in oklab, $txt 85%, $accent 15%);
+      color: $txt;
     }
   }
 
@@ -138,12 +129,10 @@ $textMeta: var(--text-meta);
   }
 }
 
-/* touch targets slightly larger */
 @media (pointer: coarse) {
   .expertiseList .skillItem { padding: .4rem .58rem; }
 }
 
-/* accessibility / print */
 @media (prefers-reduced-motion: reduce) {
   .expertiseCard { transition: none; }
   .expertiseCard:hover { transform: none; }

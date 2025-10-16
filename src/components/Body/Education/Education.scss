@@ -1,10 +1,10 @@
-$txt: var(--foreground, #102a23);
+$txt: #3f4041;
 $surface: var(--surface, #fff);
 $border: var(--border, #e2e8f0);
 $shadow: var(--shadow-1, 0 2px 8px rgba(2,6,23,.06), 0 10px 24px rgba(2,6,23,.05));
 $accent: var(--accent, #114538);
-$textSummary: var(--text-summary);
-$textMeta: var(--text-meta);
+$textSummary: $txt;
+$textMeta: $txt;
 
 .competenciesCard {
   --card-px: clamp(1rem, 2.2vw, 1.5rem);
@@ -15,7 +15,7 @@ $textMeta: var(--text-meta);
   border-radius: 16px;
   box-shadow: $shadow;
   padding: var(--card-py) var(--card-px);
-  color: $textSummary;
+  color: $txt;
   position: relative;
   isolation: isolate;
 
@@ -57,7 +57,7 @@ $textMeta: var(--text-meta);
     grid-template-columns: 20px 1fr;
     align-items: start; gap: .75rem;
     font-size: var(--fs); line-height: var(--lh);
-    color: $textMeta; margin: 0 0 var(--row-gap); padding-block: .1rem;
+    color: $txt; margin: 0 0 var(--row-gap); padding-block: .1rem;
 
     &:last-child { margin-bottom: 0; }
     &:focus-visible {
@@ -84,7 +84,6 @@ $textMeta: var(--text-meta);
 
   .eduContent { min-width: 0; }
 
-  /* new: split header = title + date */
   .eduHeader {
     display: grid;
     grid-template-columns: 1fr auto;
@@ -98,10 +97,9 @@ $textMeta: var(--text-meta);
 
   .eduMeta {
     margin: .1rem 0 0;
-    color: color-mix(in oklab, $txt 65%, $accent 5%);
+    color: $txt;
   }
 
-  /* new: visible date pill */
   .datePill {
     --pill-bg: color-mix(in oklab, $accent 14%, $surface);
     --pill-border: color-mix(in oklab, $accent 55%, $border);
@@ -110,18 +108,17 @@ $textMeta: var(--text-meta);
     border-radius: 999px;
     border: 1px solid var(--pill-border);
     background: var(--pill-bg);
-    color: color-mix(in oklab, $accent 85%, $txt);
+    color: $accent;
     font-weight: 700;
-    font-feature-settings: "tnum" 1; /* tabular figures for neat dates */
+    font-feature-settings: "tnum" 1;
     letter-spacing: .2px;
     white-space: nowrap;
   }
 
-  li:hover .eduTitle { color: color-mix(in oklab, $txt 88%, $accent 12%); }
+  li:hover .eduTitle { color: $txt; }
 }
 
 @media (max-width: 520px) {
-  /* stack title & date on small screens */
   .competenciesCardList .eduHeader {
     grid-template-columns: 1fr;
     align-items: start;

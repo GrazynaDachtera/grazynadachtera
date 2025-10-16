@@ -1,10 +1,10 @@
-$txt: var(--foreground, #102a23);
+$txt: #3f4041;
 $surface: var(--surface, #fff);
 $border: var(--border, #e2e8f0);
 $shadow: var(--shadow-1, 0 2px 8px rgba(2,6,23,.06), 0 10px 24px rgba(2,6,23,.05));
 $accent: var(--accent, #114538);
-$textSummary: var(--text-summary);
-$textMeta: var(--text-meta);
+$textSummary: $txt;
+$textMeta: $txt;
 
 .competenciesCard {
   --card-px: clamp(1rem, 2.2vw, 1.5rem);
@@ -15,7 +15,7 @@ $textMeta: var(--text-meta);
   border-radius: 16px;
   box-shadow: $shadow;
   padding: var(--card-py) var(--card-px);
-  color: $textSummary;
+  color: $txt;
   position: relative;
   isolation: isolate;
   will-change: transform;
@@ -74,7 +74,7 @@ $textMeta: var(--text-meta);
     font-size: var(--fs);
     line-height: var(--lh);
     letter-spacing: .1px;
-    color: $textMeta;
+    color: $txt;
     break-inside: avoid;
     margin: 0 0 var(--row-gap);
     padding-block: .1rem;
@@ -120,11 +120,11 @@ $textMeta: var(--text-meta);
     -webkit-hyphens: none;
     -ms-hyphens: none;
 
-    strong { color: $txt; font-weight: 700; }
+    strong { color: inherit; font-weight: 700; }
   }
 
   li:hover .competenciesText {
-    color: color-mix(in oklab, $txt 88%, $accent 12%);
+    color: $txt;
   }
 }
 

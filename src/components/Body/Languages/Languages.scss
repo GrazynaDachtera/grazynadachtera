@@ -1,24 +1,21 @@
-/* Languages.scss */
-
-$txt: var(--foreground, #102a23);
+$txt: #3f4041;
 $surface: var(--surface, #fff);
 $border: var(--border, #e2e8f0);
 $shadow: var(--shadow-1, 0 2px 8px rgba(2,6,23,.06), 0 10px 24px rgba(2,6,23,.05));
 $accent: var(--accent, #114538);
-$textSummary: var(--text-summary);
-$textMeta: var(--text-meta);
+$textSummary: $txt;
+$textMeta: $txt;
 
 .expertiseCard {
   --card-px: clamp(1rem, 2.2vw, 1.5rem);
   --card-py: clamp(1rem, 2.2vw, 1.6rem);
   --edgeHang: clamp(-6px, calc(var(--card-px) * -0.14), -6px);
-
   background: $surface;
   border: 1px solid $border;
   border-radius: 16px;
   box-shadow: $shadow;
   padding: var(--card-py) var(--card-px);
-  color: $textSummary;
+  color: $txt;
   position: relative;
   isolation: isolate;
 
@@ -44,7 +41,7 @@ $textMeta: var(--text-meta);
   border-radius: 999px;
   background: color-mix(in oklab, $accent 12%, $surface);
   border: 1px solid $border;
-  color: $accent; /* inline SVG inherits this */
+  color: $accent;
 }
 
 .expertiseTitle {
@@ -55,7 +52,6 @@ $textMeta: var(--text-meta);
   color: $accent;
 }
 
-/* === Responsive chip list; guarantees full words (e.g., "Polish") remain visible === */
 .expertiseList {
   --row-gap: clamp(.55rem, 1.2vw, .85rem);
   --col-gap: clamp(1.25rem, 4vw, 2rem);
@@ -68,11 +64,8 @@ $textMeta: var(--text-meta);
   padding: 0;
 
   display: grid;
-  /* Each chip gets a sensible minimum; auto-wraps from 2 cols to 1 as needed */
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: var(--row-gap) var(--col-gap);
-
-  /* add right-only padding to create more breathing room at the card edge */
   padding-right: var(--outer-right);
 
   @media (min-width: 1200px) {
@@ -86,13 +79,11 @@ $textMeta: var(--text-meta);
     gap: .5rem;
     width: 100%;
     min-width: 0;
-
     font-size: var(--fs);
     line-height: var(--lh);
     font-weight: 700;
     letter-spacing: .1px;
-    color: $textMeta;
-
+    color: $txt;
     padding: .34rem .6rem;
     border-radius: 999px;
     border: 1px solid color-mix(in oklab, $accent 35%, $border);
@@ -105,7 +96,7 @@ $textMeta: var(--text-meta);
     }
     &:hover {
       background: color-mix(in oklab, $accent 10%, $surface);
-      color: color-mix(in oklab, $txt 85%, $accent 15%);
+      color: $txt;
     }
   }
 
@@ -128,7 +119,6 @@ $textMeta: var(--text-meta);
   }
 
   .expertiseText {
-    /* keep full word visible; don't allow shrinking/ellipsis */
     white-space: nowrap;
     overflow: visible;
     text-overflow: clip;
@@ -137,7 +127,7 @@ $textMeta: var(--text-meta);
   }
 
   .levelBadge {
-    margin-left: auto; /* push badge to the right edge */
+    margin-left: auto;
     flex: 0 0 auto;
     font-size: clamp(.72rem, .8vw, .78rem);
     font-weight: 800;
@@ -146,18 +136,16 @@ $textMeta: var(--text-meta);
     border-radius: 999px;
     background: color-mix(in oklab, $accent 16%, $surface);
     border: 1px solid color-mix(in oklab, $accent 45%, $border);
-    color: color-mix(in oklab, $accent 70%, $txt);
+    color: $txt;
     text-transform: uppercase;
     line-height: 1;
   }
 }
 
-/* touch targets slightly larger */
 @media (pointer: coarse) {
   .expertiseList .skillItem { padding: .42rem .68rem; }
 }
 
-/* accessibility / print */
 @media (prefers-reduced-motion: reduce) {
   .expertiseCard { transition: none; }
   .expertiseCard:hover { transform: none; }
