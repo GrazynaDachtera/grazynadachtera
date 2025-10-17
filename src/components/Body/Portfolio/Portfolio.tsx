@@ -47,7 +47,7 @@ const PROJECTS = [
       "Shipped MVP in 3 weeks.",
       "Next.js App Router (TS): file-based routing & shared layouts.",
       "GDPR-compliant contact form with explicit consent (EmailJS/serverless).",
-      "Legal & a11y pages: Privacy, Terms, Accessibility, RODO.",
+      "Legal and a11y pages: Privacy, Terms, Accessibility, RODO.",
       "Mobile-first SCSS with image/loading optimizations.",
     ],
     featured: true,
@@ -60,7 +60,7 @@ const PROJECTS = [
     title: "Kuzi Sport",
     siteUrl: "https://kuzisportreact-mxhw.vercel.app/",
     summary:
-      "Fast multi-sport club website featuring GDPR-compliant trial sign-up and contact forms, an up-to-date schedule, clear pricing, news/blog, and social integrations.",
+      "High-performance website for a Poznań sports club. GDPR-compliant trial sign-ups and contact, live schedule, and clear pricing.",
     role: "Web Developer",
     period: "2025",
     tags: [
@@ -73,11 +73,9 @@ const PROJECTS = [
       "Accessibility",
     ],
     highlights: [
-      "Owned design → deploy on Vercel with preview envs & secrets.",
-      "Production-ready forms (Trial Sign-Up, Contact): validation, loading/disabled, GDPR consent (EmailJS).",
-      "Mobile-first performance: responsive SCSS, next/image, lazy loading.",
-      "Dynamic schedule 2025/26 with search & filters by location/discipline.",
-      "Pricing, news/blog, social integrations, and prominent CTAs.",
+      "Built trial sign-up and contact forms with validation, loading/disabled states, and GDPR consent (EmailJS).",
+      "Implemented a live 2025/2026 schedule with search and filters by location and discipline.",
+      "Optimized for mobile: responsive SCSS, Next.js Image, and lazy loading.",
     ],
     featured: true,
     repoUrl: "https://github.com/GrazynaDachtera/kuzisportreact",
