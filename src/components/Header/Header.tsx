@@ -20,7 +20,7 @@ type Contact = {
   copy?: string;
 };
 
-const CONTACTS: Contact[] = [
+const CONTACTS: ReadonlyArray<Contact> = [
   {
     type: "phone",
     label: "+48 733 828 924",
@@ -45,11 +45,17 @@ const CONTACTS: Contact[] = [
   },
 ];
 
-const TAGLINE = [
+const TAGLINES: ReadonlyArray<string> = [
   "I am a Frontend Developer (JavaScript • Next.js • TypeScript) with strong aesthetic judgment.",
   "I translate Figma designs into minimalist, clarity-first, standards-compliant interfaces and deliver clean, maintainable code.",
   "Clients value my speed and the intuitive feel of my sites.",
-].join("\n");
+];
+
+const AVAILABILITY: ReadonlyArray<string> = [
+  "Open to Frontend & UI roles",
+  "EU Remote · Hybrid in Warsaw",
+  "CET (UTC+1)",
+];
 
 const EMAIL = "grazynadachtera@gmail.com";
 const SUBJECT = "Frontend role — Grażyna Dachtera";
@@ -77,7 +83,7 @@ const ITEM_PROP: Record<ContactType, "email" | "telephone" | "sameAs"> = {
 const isExternal = (href: string) => href.startsWith("http");
 const externalLinkProps = (href: string) =>
   isExternal(href)
-    ? { target: "_blank", rel: "me noreferrer noopener" as const }
+    ? ({ target: "_blank", rel: "me noreferrer noopener" } as const)
     : {};
 
 const classNames = {
@@ -91,7 +97,7 @@ const classNames = {
   contacts: "resumeHeaderContacts",
   contact: "resumeHeaderContact",
   toast: "toast",
-};
+} as const;
 
 function Icon({ type }: { type: ContactType }) {
   return (
@@ -106,11 +112,11 @@ function ContactItem({
   onCopy,
 }: {
   contact: Contact;
-  onCopy: (text?: string) => void;
+  onCopy?: (text?: string) => void | Promise<void>;
 }) {
   const { type, label, href, copy } = contact;
   return (
-    <li className={classNames.contact} key={href}>
+    <li className={classNames.contact}>
       <Icon type={type} />
       <a href={href} {...externalLinkProps(href)} itemProp={ITEM_PROP[type]}>
         <span className="sr-only">{type}: </span>
@@ -121,7 +127,7 @@ function ContactItem({
           className="copy"
           type="button"
           aria-label={`Copy ${type}`}
-          onClick={() => onCopy(copy)}
+          onClick={() => onCopy?.(copy)}
         >
           ⧉
         </button>
@@ -134,10 +140,13 @@ export default function Header() {
   const [toast, setToast] = useState<string | null>(null);
 
   const gmailComposeUrl = useMemo(() => {
-    const base = "https://mail.google.com/mail/?view=cm&fs=1";
-    return `${base}&to=${encodeURIComponent(EMAIL)}&su=${encodeURIComponent(
-      SUBJECT
-    )}&body=${encodeURIComponent(BODY)}`;
+    const url = new URL("https://mail.google.com/mail/");
+    url.searchParams.set("view", "cm");
+    url.searchParams.set("fs", "1");
+    url.searchParams.set("to", EMAIL);
+    url.searchParams.set("su", SUBJECT);
+    url.searchParams.set("body", BODY);
+    return url.toString();
   }, []);
 
   const jsonLd = useMemo(
@@ -166,7 +175,7 @@ export default function Header() {
     } catch {
       setToast("Press ⌘/Ctrl+C to copy");
     }
-    window.setTimeout(() => setToast(null), 1600);
+    setTimeout(() => setToast(null), 1600);
   }
 
   return (
@@ -202,17 +211,19 @@ export default function Header() {
         </p>
 
         <p className={classNames.availability} aria-label="Availability">
-          <span className="chip">Open to Frontend & UI roles</span>
-          <span className="chip">EU Remote · Hybrid in Warsaw</span>
-          <span className="chip">CET (UTC+1)</span>
+          {AVAILABILITY.map((chip) => (
+            <span className="chip" key={chip}>
+              {chip}
+            </span>
+          ))}
         </p>
 
         <ul
           className={`${classNames.tagline} taglineList`}
           aria-label="Summary"
         >
-          {TAGLINE.split("\n").map((line, i) => (
-            <li key={i}>{line}</li>
+          {TAGLINES.map((line) => (
+            <li key={line}>{line}</li>
           ))}
         </ul>
 

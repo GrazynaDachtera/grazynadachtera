@@ -23,7 +23,7 @@ export type Experience = {
   highlights: readonly string[];
   order: number;
   wide?: boolean;
-  logo?: { src: string; alt?: string; bg?: string };
+  logo?: { src: string; alt?: string; bg?: string; href?: string };
 };
 
 const e = (x: Experience) => x;
@@ -31,6 +31,7 @@ const e = (x: Experience) => x;
 const EXPERIENCES = [
   e({
     company: "Pro Advisor Group",
+    companyUrl: "https://globalproperty-group.com/",
     role: "Web Developer",
     team: "Development",
     location: "Brussels, Belgium",
@@ -125,39 +126,56 @@ function ExternalLink({
 function CompanyLogo({
   logo,
   title,
+  href,
 }: {
   logo?: Experience["logo"];
   title: string;
+  href?: string;
 }) {
-  if (!logo?.src) {
-    const initials = title
-      .split(/\s+/)
-      .filter(Boolean)
-      .slice(0, 2)
-      .map((w) => w[0]?.toUpperCase())
-      .join("");
-    return (
-      <div
-        className="projectCardBrand projectCardBrandFallback"
-        aria-hidden="true"
-      >
-        <span>{initials || "•"}</span>
-      </div>
-    );
-  }
-  return (
-    <div
-      className="projectCardBrand"
-      style={
-        logo.bg ? ({ background: logo.bg } as React.CSSProperties) : undefined
-      }
+  const content = logo?.src ? (
+    <Image
+      src={logo.src}
+      alt={logo.alt || `${title} logo`}
+      fill
+      sizes="2.75rem"
+    />
+  ) : (
+    <span>
+      {title
+        .split(/\s+/)
+        .filter(Boolean)
+        .slice(0, 2)
+        .map((w) => w[0]?.toUpperCase())
+        .join("") || "•"}
+    </span>
+  );
+
+  const style = logo?.bg
+    ? ({ background: logo.bg } as React.CSSProperties)
+    : undefined;
+
+  return href ? (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`projectCardBrand ${
+        !logo?.src ? "projectCardBrandFallback" : ""
+      }`}
+      aria-label={`Open ${title} website`}
+      style={style}
     >
-      <Image
-        src={logo.src}
-        alt={logo.alt || `${title} logo`}
-        fill
-        sizes="44px"
-      />
+      {content}
+    </a>
+  ) : (
+    <div
+      className={`projectCardBrand ${
+        !logo?.src ? "projectCardBrandFallback" : ""
+      }`}
+      aria-hidden="true"
+      style={style}
+    >
+      {content}
     </div>
   );
 }
@@ -197,7 +215,11 @@ export default function WorkExperience() {
                 <span className="projectCardAccent" aria-hidden="true" />
 
                 <header className="projectCardHead">
-                  <CompanyLogo logo={x.logo} title={x.company} />
+                  <CompanyLogo
+                    logo={x.logo}
+                    title={x.company}
+                    href={x.logo?.href ?? x.companyUrl}
+                  />
                   <div className="projectCardHeadText">
                     <h3
                       id={headingId}

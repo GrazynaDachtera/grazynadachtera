@@ -13,11 +13,11 @@ export type Project = {
   period: string;
   tags: readonly string[];
   highlights: readonly string[];
-  featured: boolean; // kept in data model but not rendered
+  featured: boolean;
   repoUrl?: string;
   order: number;
   wide?: boolean;
-  logo?: { src: string; alt?: string; bg?: string };
+  logo?: { src: string; alt?: string; bg?: string; href?: string };
 };
 
 const poppins = Poppins({
@@ -25,8 +25,6 @@ const poppins = Poppins({
   weight: ["400", "500", "600", "700", "800"],
   display: "swap",
 });
-
-/* ---------- Data ---------- */
 
 const PROJECTS = [
   {
@@ -157,8 +155,6 @@ const PROJECTS = [
   },
 ] as const satisfies readonly Project[];
 
-/* ---------- Utilities ---------- */
-
 function slugify(s: string): string {
   return s
     .normalize("NFD")
@@ -168,10 +164,7 @@ function slugify(s: string): string {
     .replace(/(^-|-$)+/g, "");
 }
 
-/* ---------- UI ---------- */
-
 function Tag({ children }: { children: ReactNode }) {
-  // stays "pill" on purpose to keep global styling hooks
   return <span className="pill">{children}</span>;
 }
 
@@ -199,34 +192,59 @@ function ExternalLink({
   );
 }
 
-function BrandLogo({ logo, title }: { logo?: Project["logo"]; title: string }) {
-  if (!logo?.src) {
-    const initials = title
-      .split(/\s+/)
-      .filter(Boolean)
-      .slice(0, 2)
-      .map((w) => w[0]?.toUpperCase())
-      .join("");
-    return (
-      <div
-        className="projectCardBrand projectCardBrandFallback"
-        aria-hidden="true"
-      >
-        <span>{initials || "•"}</span>
-      </div>
-    );
-  }
-  return (
-    <div
-      className="projectCardBrand"
-      style={logo.bg ? ({ background: logo.bg } as CSSProperties) : undefined}
+function BrandLogo({
+  logo,
+  title,
+  href,
+}: {
+  logo?: Project["logo"];
+  title: string;
+  href?: string;
+}) {
+  const content = logo?.src ? (
+    <Image
+      src={logo.src}
+      alt={logo.alt || `${title} logo`}
+      fill
+      sizes="2.75rem"
+    />
+  ) : (
+    <span>
+      {title
+        .split(/\s+/)
+        .filter(Boolean)
+        .slice(0, 2)
+        .map((w) => w[0]?.toUpperCase())
+        .join("") || "•"}
+    </span>
+  );
+
+  const style = logo?.bg
+    ? ({ background: logo.bg } as CSSProperties)
+    : undefined;
+
+  return href ? (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`projectCardBrand ${
+        !logo?.src ? "projectCardBrandFallback" : ""
+      }`}
+      aria-label={`Open ${title}`}
+      style={style}
     >
-      <Image
-        src={logo.src}
-        alt={logo.alt || `${title} logo`}
-        fill
-        sizes="44px"
-      />
+      {content}
+    </a>
+  ) : (
+    <div
+      className={`projectCardBrand ${
+        !logo?.src ? "projectCardBrandFallback" : ""
+      }`}
+      aria-hidden="true"
+      style={style}
+    >
+      {content}
     </div>
   );
 }
@@ -250,7 +268,11 @@ function ProjectCard({ proj, index }: { proj: Project; index: number }) {
         <span className="projectCardAccent" aria-hidden="true" />
 
         <header className="projectCardHead">
-          <BrandLogo logo={proj.logo} title={proj.title} />
+          <BrandLogo
+            logo={proj.logo}
+            title={proj.title}
+            href={proj.logo?.href ?? proj.siteUrl}
+          />
 
           <div className="projectCardHeadText">
             <h3 id={headingId} className="projectCardTitle" itemProp="name">
@@ -323,8 +345,6 @@ function ProjectCard({ proj, index }: { proj: Project; index: number }) {
     </li>
   );
 }
-
-/* ---------- Component ---------- */
 
 const PROJECTS_SORTED = [...PROJECTS].sort((a, b) => a.order - b.order);
 
