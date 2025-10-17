@@ -8,14 +8,7 @@ export default function CoreCompetencies() {
     <section className="competenciesCard" aria-labelledby="competencies-title">
       <header className="competenciesCardHeader">
         <span aria-hidden="true" className="competenciesCardIcon" role="img">
-          {/* “skills” sparkle icon (green via CSS) */}
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            focusable="false"
-            aria-hidden="true"
-          >
+          <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
             <path
               d="M12 2l2.2 4.8L19 9l-4.8 2.2L12 16l-2.2-4.8L5 9l4.8-2.2L12 2Zm7 9.5 1.2 2.6 2.6 1.2-2.6 1.2L19 19.1l-1.2-2.6-2.6-1.2 2.6-1.2L19 11.5ZM4 12.5l1 2.2 2.2 1-2.2 1L4 19l-1-2.2-2.2-1L3 14.7 4 12.5Z"
               fill="currentColor"

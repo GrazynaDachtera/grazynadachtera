@@ -1,7 +1,7 @@
 $txt: #3f4041;
 $surface: var(--surface, #fff);
 $border: var(--border, #e2e8f0);
-$shadow: var(--shadow-1, 0 2px 8px rgba(2,6,23,.06), 0 10px 24px rgba(2,6,23,.05));
+$shadow: var(--shadow-1, 0 0.125rem 0.5rem rgba(2,6,23,.06), 0 0.625rem 1.5rem rgba(2,6,23,.05));
 $accent: var(--accent, #114538);
 $textSummary: $txt;
 $textMeta: $txt;
@@ -9,10 +9,10 @@ $textMeta: $txt;
 .competenciesCard {
   --card-px: clamp(1rem, 2.2vw, 1.5rem);
   --card-py: clamp(1rem, 2.2vw, 1.6rem);
-  --edgeHang: clamp(-6px, calc(var(--card-px) * -0.14), -6px);
+  --edgeHang: clamp(-0.375rem, calc(var(--card-px) * -0.14), -0.375rem);
   background: $surface;
-  border: 1px solid $border;
-  border-radius: 16px;
+  border: 0.0625rem solid $border;
+  border-radius: 1rem;
   box-shadow: $shadow;
   padding: var(--card-py) var(--card-px);
   color: $txt;
@@ -26,8 +26,8 @@ $textMeta: $txt;
     transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
   }
 
-  &:hover { transform: translateY(-1px); }
-  &:focus-within { outline: 2px solid $accent; outline-offset: 2px; }
+  &:hover { transform: translateY(-0.0625rem); }
+  &:focus-within { outline: 0.125rem solid $accent; outline-offset: 0.125rem; }
 }
 
 .competenciesCardHeader {
@@ -40,14 +40,22 @@ $textMeta: $txt;
 }
 
 .competenciesCardIcon {
-  width: 28px; height: 28px;
-  display: grid; place-items: center;
-  border-radius: 999px;
+  width: 1.75rem;
+  height: 1.75rem;
+  display: grid;
+  place-items: center;
+  border-radius: 62.4375rem;
   background: color-mix(in oklab, $accent 12%, $surface);
-  border: 1px solid $border;
-  font-size: 14px;
+  border: 0.0625rem solid $border;
+  font-size: 0.875rem;
   color: $accent;
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+  }
 }
+
 .competenciesCardTitle {
   margin: 0;
   font-size: clamp(1.06rem, 1.6vw, 1.18rem);
@@ -73,7 +81,7 @@ $textMeta: $txt;
     min-width: 0;
     font-size: var(--fs);
     line-height: var(--lh);
-    letter-spacing: .1px;
+    letter-spacing: 0.00625rem;
     color: $txt;
     break-inside: avoid;
     margin: 0 0 var(--row-gap);
@@ -81,20 +89,21 @@ $textMeta: $txt;
 
     &:last-child { margin-bottom: 0; }
     &:focus-visible {
-      outline: 3px solid color-mix(in oklab, $accent 30%, transparent);
-      outline-offset: 2px;
+      outline: 0.1875rem solid color-mix(in oklab, $accent 30%, transparent);
+      outline-offset: 0.125rem;
     }
   }
 
   .competenciesCheck {
-    width: 20px; height: 20px;
-    flex: 0 0 20px;
+    width: 1.25rem;
+    height: 1.25rem;
+    flex: 0 0 1.25rem;
     margin-top: .15rem;
-    border-radius: 999px;
+    border-radius: 62.4375rem;
     background: color-mix(in oklab, $accent 7%, $surface);
     box-shadow:
-      0 0 0 2px color-mix(in oklab, $accent 65%, $border) inset,
-      0 1px 0 rgba(2,6,23,.04);
+      0 0 0 0.125rem color-mix(in oklab, $accent 65%, $border) inset,
+      0 0.0625rem 0 rgba(2,6,23,.04);
     position: relative;
 
     &::after {
@@ -103,7 +112,7 @@ $textMeta: $txt;
       inset: 0;
       display: grid;
       place-items: center;
-      font-size: 12px;
+      font-size: 0.75rem;
       font-weight: 900;
       color: color-mix(in oklab, $accent 70%, $txt);
       line-height: 1;
