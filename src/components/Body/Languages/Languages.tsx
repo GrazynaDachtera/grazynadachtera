@@ -16,9 +16,9 @@ const SKILLS: readonly Skill[] = [
 
 export default function Languages() {
   return (
-    <section className="expertiseCard" aria-labelledby="languagesTitle">
-      <header className="expertiseHeader">
-        <span aria-hidden="true" className="expertiseIcon">
+    <section className="languageCard" aria-labelledby="languagesTitle">
+      <header className="languageHeader">
+        <span aria-hidden="true" className="languageIcon">
           {/* chat-bubbles icon (inherits currentColor) */}
           <svg
             width="16"
@@ -33,24 +33,27 @@ export default function Languages() {
             />
           </svg>
         </span>
-        <h3 id="languagesTitle" className="expertiseTitle">
+        <h3 id="languagesTitle" className="languageTitle">
           Languages
         </h3>
       </header>
 
-      <ul className="expertiseList" role="list">
+      <ul className="languageList" role="list">
         {SKILLS.map(({ name, level, langCode }) => (
           <li
             key={name}
             tabIndex={0}
-            className="skillItem"
+            className="languageItem"
             aria-label={`${name}: ${level}`}
           >
-            <span className="expertiseCheck" aria-hidden="true" />
-            <span className="expertiseText" lang={langCode}>
+            <span className="languageCheck" aria-hidden="true" />
+            <span className="languageText" lang={langCode}>
               {name}
             </span>
-            <span className="levelBadge" title={`Proficiency: ${level}`}>
+            <span
+              className="languageLevelBadge"
+              title={`Proficiency: ${level}`}
+            >
               {level}
             </span>
           </li>

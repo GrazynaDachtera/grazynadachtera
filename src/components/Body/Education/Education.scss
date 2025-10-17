@@ -1,8 +1,8 @@
 $txt: #3f4041;
-$surface: var(--surface, #fff);
-$border: var(--border, #e2e8f0);
-$shadow: var(--shadow-1, 0 2px 8px rgba(2,6,23,.06), 0 10px 24px rgba(2,6,23,.05));
-$accent: var(--accent, #114538);
+$surface: #fff;
+$border: #e2e8f0;
+$shadow: 0 2px 8px rgba(2,6,23,.06), 0 10px 24px rgba(2,6,23,.05);
+$accent: #114538;
 $textSummary: $txt;
 $textMeta: $txt;
 
@@ -91,9 +91,7 @@ $textMeta: $txt;
     gap: .5rem .75rem;
   }
 
-  .eduTitle {
-    color: $txt; font-weight: 700;
-  }
+  .eduTitle { color: $txt; font-weight: 700; }
 
   .eduMeta {
     margin: .1rem 0 0;

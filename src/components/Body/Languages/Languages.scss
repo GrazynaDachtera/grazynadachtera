@@ -1,12 +1,12 @@
 $txt: #3f4041;
-$surface: var(--surface, #fff);
-$border: var(--border, #e2e8f0);
-$shadow: var(--shadow-1, 0 2px 8px rgba(2,6,23,.06), 0 10px 24px rgba(2,6,23,.05));
-$accent: var(--accent, #114538);
+$surface: #fff;
+$border: #e2e8f0;
+$shadow: 0 2px 8px rgba(2,6,23,.06), 0 10px 24px rgba(2,6,23,.05);
+$accent: #114538;
 $textSummary: $txt;
 $textMeta: $txt;
 
-.expertiseCard {
+.languageCard {
   --card-px: clamp(1rem, 2.2vw, 1.5rem);
   --card-py: clamp(1rem, 2.2vw, 1.6rem);
   --edgeHang: clamp(-6px, calc(var(--card-px) * -0.14), -6px);
@@ -26,7 +26,7 @@ $textMeta: $txt;
   &:focus-within { outline: 2px solid $accent; outline-offset: 2px; }
 }
 
-.expertiseHeader {
+.languageHeader {
   display: flex;
   align-items: center;
   gap: .65rem;
@@ -35,7 +35,7 @@ $textMeta: $txt;
   margin-top: var(--edgeHang);
 }
 
-.expertiseIcon {
+.languageIcon {
   width: 28px; height: 28px;
   display: grid; place-items: center;
   border-radius: 999px;
@@ -44,7 +44,7 @@ $textMeta: $txt;
   color: $accent;
 }
 
-.expertiseTitle {
+.languageTitle {
   margin: 0;
   font-size: clamp(1.06rem, 1.6vw, 1.18rem);
   font-weight: 800;
@@ -52,7 +52,7 @@ $textMeta: $txt;
   color: $accent;
 }
 
-.expertiseList {
+.languageList {
   --row-gap: clamp(.55rem, 1.2vw, .85rem);
   --col-gap: clamp(1.25rem, 4vw, 2rem);
   --outer-right: clamp(1rem, 4vw, 2rem);
@@ -73,7 +73,7 @@ $textMeta: $txt;
     --outer-right: clamp(1.25rem, 5vw, 2.75rem);
   }
 
-  .skillItem {
+  .languageItem {
     display: flex;
     align-items: center;
     gap: .5rem;
@@ -100,7 +100,7 @@ $textMeta: $txt;
     }
   }
 
-  .expertiseCheck {
+  .languageCheck {
     width: 18px; height: 18px; flex: 0 0 18px;
     border-radius: 999px;
     background: color-mix(in oklab, $accent 10%, $surface);
@@ -118,7 +118,7 @@ $textMeta: $txt;
     }
   }
 
-  .expertiseText {
+  .languageText {
     white-space: nowrap;
     overflow: visible;
     text-overflow: clip;
@@ -126,7 +126,7 @@ $textMeta: $txt;
     min-width: max-content;
   }
 
-  .levelBadge {
+  .languageLevelBadge {
     margin-left: auto;
     flex: 0 0 auto;
     font-size: clamp(.72rem, .8vw, .78rem);
@@ -143,20 +143,20 @@ $textMeta: $txt;
 }
 
 @media (pointer: coarse) {
-  .expertiseList .skillItem { padding: .42rem .68rem; }
+  .languageList .languageItem { padding: .42rem .68rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .expertiseCard { transition: none; }
-  .expertiseCard:hover { transform: none; }
-  .expertiseList .skillItem:hover {
+  .languageCard { transition: none; }
+  .languageCard:hover { transform: none; }
+  .languageList .languageItem:hover {
     background: color-mix(in oklab, $accent 6%, $surface);
     color: inherit;
   }
 }
 
 @media print {
-  .expertiseCard { break-inside: avoid; box-shadow: none; }
-  .expertiseList .skillItem { background: transparent; }
-  .expertiseList .levelBadge { border: 1px solid #000; }
+  .languageCard { break-inside: avoid; box-shadow: none; }
+  .languageList .languageItem { background: transparent; }
+  .languageList .languageLevelBadge { border: 1px solid #000; }
 }
