@@ -46,9 +46,9 @@ const CONTACTS: ReadonlyArray<Contact> = [
 ];
 
 const TAGLINES: ReadonlyArray<string> = [
-  "I am a Frontend Developer (JavaScript • Next.js • TypeScript) with strong aesthetic judgment.",
-  "I translate Figma designs into minimalist, clarity-first, standards-compliant interfaces and deliver clean, maintainable code.",
-  "Clients value my speed and the intuitive feel of my sites.",
+  "I am an entry-level Frontend/UI developer focused on turning Figma designs into accessible, robust React/Next.js (TypeScript) interfaces.",
+  "Clients value my speed, attention to detail, and the intuitive feel of the experiences I build.",
+  "Actively seeking a Junior Frontend/UI role.",
 ];
 
 const AVAILABILITY: ReadonlyArray<string> = [

@@ -238,6 +238,11 @@ $resume-glow-radius: $radius-xl + 0.125rem;
 .resumeHeaderRole .badge,
 .resumeHeaderAvailability .chip { color: #3f4041 !important; }
 
+.resumeHeaderRole .badge,
+.resumeHeaderRole .badge--sub {
+  font-weight: 650; 
+}
+
 .resumeHeaderCta .btn.btn--ghost,
 .resumeHeaderCta .btn.btn--ghost:visited,
 .resumeHeaderCta .btn.btn--ghost:focus,
