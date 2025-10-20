@@ -18,6 +18,8 @@ export type Project = {
   order: number;
   wide?: boolean;
   logo?: { src: string; alt?: string; bg?: string; href?: string };
+  status?: "In progress" | "Completed" | "Archived" | string;
+  legacyUrl?: string;
 };
 
 const poppins = Poppins({
@@ -31,7 +33,7 @@ const PROJECTS = [
     title: "Sąsiedzki Łazarz",
     siteUrl: "https://www.sasiedzkilazarz.pl/",
     summary:
-      "Neighborhood association site for Poznań’s Łazarz district: who they are, how to get involved, and current community projects.",
+      "Neighborhood association site for Poznań’s Łazarz district - mission, how to get involved, and current projects.",
     role: "Web Developer",
     period: "2025",
     tags: [
@@ -44,11 +46,11 @@ const PROJECTS = [
       "Accessibility",
     ],
     highlights: [
-      "Shipped MVP in 3 weeks.",
-      "Next.js App Router (TS): file-based routing & shared layouts.",
-      "GDPR-compliant contact form with explicit consent (EmailJS/serverless).",
-      "Legal and a11y pages: Privacy, Terms, Accessibility, RODO.",
-      "Mobile-first SCSS with image/loading optimizations.",
+      "Shipped MVP from brief to launch in 3 weeks.",
+      "Built with Next.js App Router (TypeScript): file-based routing and shared layouts.",
+      "Lighthouse (mobile and desktop): 100/100/100 for Accessibility, Best Practices and SEO.",
+      "Implemented a GDPR-compliant contact form with explicit consent (EmailJS + serverless).",
+      "Optimized mobile performance: responsive SCSS, Next.js Image, and lazy loading.",
     ],
     featured: true,
     repoUrl: "https://github.com/GrazynaDachtera/SasiedzkiLazarz.git",
@@ -60,9 +62,9 @@ const PROJECTS = [
     title: "Kuzi Sport",
     siteUrl: "https://kuzisportreact-mxhw.vercel.app/",
     summary:
-      "High-performance website for a Poznań sports club. GDPR-compliant trial sign-ups and contact, live schedule, and clear pricing.",
+      "Next.js rebuild - replacing my legacy JavaScript site at kuzisport.pl. GDPR-compliant trial sign-ups, contact, live schedule, and clear pricing.",
     role: "Web Developer",
-    period: "2025",
+    period: "2025 - in progress",
     tags: [
       "Next.js",
       "React",
@@ -76,12 +78,15 @@ const PROJECTS = [
       "Built trial sign-up and contact forms with validation, loading/disabled states, and GDPR consent (EmailJS).",
       "Implemented a live 2025/2026 schedule with search and filters by location and discipline.",
       "Optimized for mobile: responsive SCSS, Next.js Image, and lazy loading.",
+      "Migrating from the legacy JavaScript site. This build will be pinned to kuzisport.pl on launch.",
     ],
     featured: true,
     repoUrl: "https://github.com/GrazynaDachtera/kuzisportreact",
     order: 2,
     wide: true,
     logo: { src: "/logo2.png", alt: "Kuzi Sport logo" },
+    status: "In progress",
+    legacyUrl: "https://kuzisport.pl",
   },
   {
     title: "Kongwell",
@@ -251,6 +256,11 @@ function ProjectCard({ proj, index }: { proj: Project; index: number }) {
   const headingId = `${slugify(proj.title)}-${index}`;
   const summaryId = `${headingId}-summary`;
 
+  // Ensure <time dateTime> is valid even when period includes text like "— in progress"
+  const dateTimeValue = /^\d{4}(-\d{2}(-\d{2})?)?$/.test(proj.period)
+    ? proj.period
+    : proj.period.match(/\b\d{4}\b/)?.[0] ?? "";
+
   return (
     <li
       className={`portfolioItem${proj.wide ? " isWide" : ""}`}
@@ -287,9 +297,17 @@ function ProjectCard({ proj, index }: { proj: Project; index: number }) {
               <span aria-hidden="true" className="projectCardDot">
                 •
               </span>
-              <time itemProp="datePublished" dateTime={proj.period}>
+              <time itemProp="datePublished" dateTime={dateTimeValue}>
                 {proj.period}
               </time>
+              {proj.status && (
+                <>
+                  <span aria-hidden="true" className="projectCardDot">
+                    •
+                  </span>
+                  <span className="projectCardStatus">{proj.status}</span>
+                </>
+              )}
             </p>
 
             <p
@@ -335,6 +353,15 @@ function ProjectCard({ proj, index }: { proj: Project; index: number }) {
                 ariaLabel={`View code on GitHub: ${proj.title}`}
               >
                 Code
+              </ExternalLink>
+            )}
+            {proj.legacyUrl && (
+              <ExternalLink
+                href={proj.legacyUrl}
+                className="btn btn--ghost"
+                ariaLabel={`Open legacy site: ${proj.title}`}
+              >
+                Legacy
               </ExternalLink>
             )}
           </nav>
