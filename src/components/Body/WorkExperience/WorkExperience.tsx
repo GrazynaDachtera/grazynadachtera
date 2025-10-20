@@ -32,16 +32,17 @@ const EXPERIENCES = [
   e({
     company: "Pro Advisor Group",
     companyUrl: "https://globalproperty-group.com/",
-    role: "Web Developer",
+    role: "Web Development Intern",
     team: "Development",
     location: "Brussels, Belgium",
     period: "09.2024 - 03.2025",
     summary:
-      "Frontend development in Next.js/React: responsive UIs, Figma handoff, and API-integrated forms.",
+      "Shipped responsive, accessible, cross-browser Next.js/React interfaces from Figma designs; integrated an API-backed contact form with client-side validation, and contributed to code reviews and reusable components.",
     tags: ["React", "TypeScript", "Next.js", "SCSS", "APIs", "Figma"],
     highlights: [
       "Built responsive interfaces from Figma in React/TypeScript (Next.js).",
       "Integrated forms with APIs for data submission and validation.",
+      "Participated in code reviews to improve code quality and consistency.",
       "Delivered globalproperty-group.com UI with cross-browser compatibility.",
     ],
     order: 1,
@@ -240,23 +241,41 @@ export default function WorkExperience() {
 
                     <p className="projectCardMeta">
                       <span className="projectCardRole">{x.role}</span>
-                      <span aria-hidden="true" className="projectCardDot">
-                        •
-                      </span>
-                      <time itemProp="datePublished" dateTime={x.period}>
-                        {x.period}
-                      </time>
                     </p>
+
+                    {(x.team || x.location || x.period) && (
+                      <p className="projectCardContext" role="text">
+                        {x.team && (
+                          <span className="projectCardTeam">{x.team}</span>
+                        )}
+                        {x.team && (x.location || x.period) && (
+                          <span aria-hidden="true" className="projectCardDot">
+                            •
+                          </span>
+                        )}
+                        {x.location && (
+                          <span className="projectCardLocation">
+                            {x.location}
+                          </span>
+                        )}
+                        {x.location && x.period && (
+                          <span aria-hidden="true" className="projectCardDot">
+                            •
+                          </span>
+                        )}
+                        {x.period && (
+                          <time itemProp="datePublished" dateTime={x.period}>
+                            {x.period}
+                          </time>
+                        )}
+                      </p>
+                    )}
 
                     <p
                       id={summaryId}
                       className="projectCardSummary"
                       itemProp="description"
                     >
-                      {[
-                        x.team ? `${x.team}` : "",
-                        x.location ? ` — ${x.location}` : "",
-                      ].join("")}{" "}
                       {x.summary}
                     </p>
                   </div>

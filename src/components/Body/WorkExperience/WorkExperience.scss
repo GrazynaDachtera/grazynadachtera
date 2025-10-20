@@ -112,7 +112,7 @@ $shadow1: var(--shadow-1);
 .projectCardHeadText {
   display: flex;
   flex-direction: column;
-  gap: .2rem;
+  gap: .25rem;
   min-width: 0;
 }
 
@@ -185,22 +185,43 @@ $heading-size: clamp(1.05rem, 1.6vw, 1.25rem);
   margin: 0;
   display: inline-flex;
   align-items: baseline;
-  gap: .45rem;
+  gap: .55rem;
   flex-wrap: wrap;
+ font-size: clamp(.98rem, .96rem + .40vw, 1.14rem);
+  font-weight: 700;
+  letter-spacing: .005em;
+  color: var(--text);
+}
+
+.projectCardRole { font-weight: 700; }
+
+.projectCardMeta time {
+  font-weight: 700;
+  color: color-mix(in srgb, var(--text) 85%, $textMeta);
+}
+
+.projectCardContext {
+  margin: 0;
   color: $textMeta;
   font-size: clamp(.9rem, .88rem + .15vw, 1.02rem);
   font-weight: 600;
   letter-spacing: .0125em;
+  display: inline-flex;
+  align-items: baseline;
+  gap: .45rem;
+  flex-wrap: wrap;
 }
 
-.projectCardDot { opacity: .45; }
+.projectCardContext .projectCardDot { opacity: .45; }
+
+.projectCardDot { opacity: .35; }
 
 .projectCardSummary {
-  margin: .15rem 0 0;
-  color: $textMeta;
+  margin: .3rem 0 0;
+  color: var(--text);
   font-size: var(--summary-size);
   line-height: var(--summary-lh);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .projectCardContent { min-height: 0; }
