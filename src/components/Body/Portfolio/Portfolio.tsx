@@ -33,7 +33,7 @@ const PROJECTS = [
     title: "Sąsiedzki Łazarz",
     siteUrl: "https://www.sasiedzkilazarz.pl/",
     summary:
-      "Neighborhood association site for Poznań’s Łazarz district - mission, how to get involved, and current projects.",
+      "Community hub for Poznań’s Łazarz district. Live news and events, active projects (Park-Sad by Hetmańska, neighborhood clean-ups, fire-safety workshops), the weekly “Blajba” culture guide, community dinners, and tree-planting with clear ways to get involved.",
     role: "Web Developer",
     period: "2025",
     tags: [
@@ -62,7 +62,7 @@ const PROJECTS = [
     title: "Kuzi Sport",
     siteUrl: "https://kuzisportreact-mxhw.vercel.app/",
     summary:
-      "Next.js rebuild - replacing my legacy JavaScript site at kuzisport.pl. GDPR-compliant trial sign-ups, contact, live schedule, and clear pricing.",
+      "Next.js rebuild for a Poznań sports club: consistent branding, mobile design, straightforward navigation, quick access to the season schedule and pricing, and up to date news and social posts - replacing kuzisport.pl.",
     role: "Web Developer",
     period: "2025 - in progress",
     tags: [
@@ -92,14 +92,14 @@ const PROJECTS = [
     title: "Kongwell",
     siteUrl: "https://kongwell.com/",
     summary:
-      "Next.js landing with a clean ‘What we do / Who we are / Why it matters / How we operate’ flow, highlighting proprietary-capital trading and REMIT-aligned transparency.",
+      "Next.js landing for a proprietary trading firm highlighting the value proposition, operating model, and REMIT transparency.",
     role: "Web Developer",
     period: "2025",
     tags: ["Next.js", "React", "TypeScript", "SCSS", "Accessibility"],
     highlights: [
-      "Single-page landing with clear section flow.",
-      "Responsive layout with strong type/contrast.",
-      "Fast first paint and distraction-free hierarchy.",
+      "Designed a single-page landing with a clear section flow.",
+      "Lighthouse (mobile and desktop): 100/100/100 for Accessibility, Best Practices and SEO.",
+      "Implemented a responsive layout with strong typography and contrast.",
     ],
     featured: false,
     repoUrl: "https://github.com/GrazynaDachtera/Kongwell",
@@ -111,12 +111,12 @@ const PROJECTS = [
     title: "Global Property",
     siteUrl: "https://globalproperty-group.com/",
     summary:
-      "Built a Next.js/React site for a luxury real-estate company. Translated Figma designs into reusable components, integrated Node.js APIs, and ensured cross-browser compatibility.",
+      "Next.js site for a luxury real estate company. Reusable component system, Node.js/Next.js API integration, and cross-browser compatibility.",
     role: "Web Development Intern",
     period: "2024-2025",
     tags: ["Next.js", "React", "TypeScript", "SCSS", "Node.js"],
     highlights: [
-      "Translated Figma into reusable React/TS components (SCSS modules).",
+      "Translated Figma mockups into reusable React/TS components (SCSS modules).",
       "Integrated Next.js APIs for property data and lead capture.",
     ],
     featured: true,
@@ -129,7 +129,7 @@ const PROJECTS = [
     title: "summ-it",
     siteUrl: "https://summ-it.pl",
     summary:
-      "Full-site Lighthouse audit of summ-it.pl (desktop & mobile) across Performance, Accessibility, Best Practices, and SEO—delivering a prioritized fix plan.",
+      "Lighthouse audit of summ-it.pl, a database services company: Performance, Accessibility, Best Practices, and SEO (mobile and desktop) with a prioritized fix plan.",
     role: "Associate IT Specialist",
     period: "2023-2024",
     tags: [
@@ -144,10 +144,10 @@ const PROJECTS = [
     highlights: [
       "Lighthouse audit: Performance, Accessibility, Best Practices, SEO (desktop & mobile).",
       "Performance: defined media sizes, optimized/compressed images, lazy-loaded assets, reduced unused JS.",
-      "Accessibility: added accessible names; fixed heading hierarchy.",
-      "SEO: meta descriptions; descriptive alt text; improved snippets/indexing.",
-      "Best practices: cookie flags (Secure/SameSite/HttpOnly); font-display & preload.",
-      "Page fixes: lazy-loaded Google Maps; iframe titles; improved Case Study response time.",
+      "Accessibility: added accessible names, fixed heading hierarchy.",
+      "SEO: meta descriptions, descriptive alt text, improved snippets/indexing.",
+      "Best practices: cookie flags (Secure/SameSite/HttpOnly), font-display & preload.",
+      "Page fixes: lazy-loaded Google Maps, iframe titles, improved Case Study response time.",
       "UX: tighter spacing, centered CTAs/footers, clearer slider/navigation.",
     ],
     featured: true,
