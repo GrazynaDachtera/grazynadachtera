@@ -230,7 +230,7 @@ export default function Header() {
         <div className={classNames.cta}>
           <a
             className="btn btn--primary"
-            href="/cv-grazyna-dachtera.pdf"
+            href="/resume/Grazyna Dachtera Resume.pdf"
             download
           >
             Download CV
