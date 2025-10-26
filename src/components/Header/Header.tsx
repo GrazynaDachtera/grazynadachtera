@@ -58,7 +58,7 @@ const AVAILABILITY: ReadonlyArray<string> = [
 ];
 
 const EMAIL = "grazynadachtera@gmail.com";
-const SUBJECT = "Frontend role — Grażyna Dachtera";
+const SUBJECT = "Frontend role - Grażyna Dachtera";
 const BODY =
   "Hi Grażyna,\n\nI'm reaching out about a Frontend/Next.js role. Would you be available for a quick chat?\n\nBest,\n";
 

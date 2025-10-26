@@ -256,7 +256,6 @@ function ProjectCard({ proj, index }: { proj: Project; index: number }) {
   const headingId = `${slugify(proj.title)}-${index}`;
   const summaryId = `${headingId}-summary`;
 
-  // Ensure <time dateTime> is valid even when period includes text like "— in progress"
   const dateTimeValue = /^\d{4}(-\d{2}(-\d{2})?)?$/.test(proj.period)
     ? proj.period
     : proj.period.match(/\b\d{4}\b/)?.[0] ?? "";
