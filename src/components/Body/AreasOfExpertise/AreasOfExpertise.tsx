@@ -4,8 +4,9 @@ import React from "react";
 import "./AreasOfExpertise.scss";
 
 const SKILLS = [
-  "JavaScript, Typescript",
-  "React, Next.js",
+  "JavaScript",
+  "Typescript (basics)",
+  "React, Next.js (basics)",
   "HTML",
   "CSS, SCSS",
   "Git",
