@@ -164,7 +164,7 @@ export default function Header() {
           "https://linkedin.com/in/grazynadachtera",
         ],
       }),
-    []
+    [],
   );
 
   async function handleCopy(text?: string) {
