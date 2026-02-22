@@ -60,11 +60,11 @@ const PROJECTS = [
   },
   {
     title: "Kuzi Sport",
-    siteUrl: "https://kuzisportreact-mxhw.vercel.app/",
+    siteUrl: "https://www.kuzisport.pl/",
     summary:
-      "Next.js rebuild for a Poznań sports club: consistent branding, mobile design, straightforward navigation, quick access to the season schedule and pricing, and up to date news and social posts - replacing kuzisport.pl.",
+      "Next.js rebuild for a Poznań sports club: consistent branding, mobile design, contact and reservation forms, straightforward navigation, quick access to the class schedule and pricing, and up to date news and social posts.",
     role: "Web Developer",
-    period: "2025 - in progress",
+    period: "2025 - 01.2026",
     tags: [
       "Next.js",
       "React",
@@ -85,8 +85,6 @@ const PROJECTS = [
     order: 2,
     wide: true,
     logo: { src: "/logo2.png", alt: "Kuzi Sport logo" },
-    status: "In progress",
-    legacyUrl: "https://kuzisport.pl",
   },
   {
     title: "Kongwell",
@@ -258,7 +256,7 @@ function ProjectCard({ proj, index }: { proj: Project; index: number }) {
 
   const dateTimeValue = /^\d{4}(-\d{2}(-\d{2})?)?$/.test(proj.period)
     ? proj.period
-    : proj.period.match(/\b\d{4}\b/)?.[0] ?? "";
+    : (proj.period.match(/\b\d{4}\b/)?.[0] ?? "");
 
   return (
     <li
